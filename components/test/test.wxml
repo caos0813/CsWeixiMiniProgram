@@ -1,0 +1,6 @@
+<!--components/test/test.wxml-->
+<view>
+
+    <button type="primary"  bindtap="alert"> {{name}} </button>
+</view>
+<slot></slot>
