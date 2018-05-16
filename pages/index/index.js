@@ -2,9 +2,10 @@
 //获取应用实例
 const app = getApp()
 const test= require('../../components/test/test.js')
-
+const { createAnimation}=require('../../utils/wexin-common.js')
 Page({
   data: {
+    animationData:{},
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -12,9 +13,29 @@ Page({
   },
   //事件处理函数
   bindViewTap: function() {
+
     wx.navigateTo({
       url: '../logs/logs'
     })
+  },
+  onShow(){
+    console.log(wx)
+       let animation= createAnimation({
+          duration:1400, //	动画持续时间，单位ms
+          timingFunction :'linear', //定义动画的效果
+          delay :0, //动画延迟时间，单位 ms
+          transformOrigin: '50% 50% 0' //设置transform-origin
+        });
+       animation.rotate(90).translateX(100).step(30);
+       this.setData({
+         animationData: animation.export()
+       })
+       setTimeout(function () {
+         animation.translate(30).step()
+         this.setData({
+           animationData: animation.export()
+         })
+       }.bind(this), 1000)
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
@@ -43,6 +64,7 @@ Page({
         }
       })
     }
+    
   },
   getUserInfo: function(e) {
     console.log(e)

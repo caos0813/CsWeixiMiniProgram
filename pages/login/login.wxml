@@ -1,0 +1,16 @@
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="section section_gap">
+    <view class="section__title">switch</view>
+  <input placeholder="这是一个可以自动聚焦的input" auto-focus/>
+  </view>
+  <view class="section section_gap">
+    <view class="section__title">slider</view>
+  <input type="password" placeholder="请输入密码"/>
+  </view>
+
+
+  <view class="btn-area">
+    <button formType="submit">Submit</button>
+    <button formType="reset">Reset</button>
+  </view>
+</form>
