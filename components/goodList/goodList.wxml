@@ -1,0 +1,5 @@
+<!--components/goodList/goodList.wxml-->
+<text>
+{{userName}}
+{{data}}
+</text>

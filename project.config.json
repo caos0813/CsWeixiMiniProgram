@@ -4,22 +4,17 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
-	"appid": "wx51d3cb815fdfee28",
-	"projectname": "DxWeixiMiniProgram",
+	"libVersion": "2.0.6",
+	"appid": "wx8dd90598dad470cf",
+	"projectname": "MjdMiniProgram",
 	"isGameTourist": false,
-	"scripts": {
-		"beforeCompile": "",
-		"beforePreview": "",
-		"beforeUpload": ""
-	},
 	"condition": {
 		"search": {
 			"current": -1,

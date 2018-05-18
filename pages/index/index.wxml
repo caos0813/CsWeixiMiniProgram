@@ -7,13 +7,8 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class="usermotto"  >
-    <text class="user-motto" animation="{{animationData}}">{{motto}}</text>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
   </view>
-  <view class="buttons">
-
-    <button type="primary"  open-type=""> 授权 </button>
-  <button type="primary"  bindtap="alert"> 弹窗 </button>
-  <test>aa</test>
-</view>
+  <goodlist url="getListByCatalogId"></goodlist>
 </view>
