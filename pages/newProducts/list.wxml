@@ -1,0 +1,6 @@
+<!-- pages/newProducts/list.wsml -->
+<filterbar bindchange="onChange" filterBar="{{filterBar}}"></filterbar>
+<scroll-view style="padding-top:110rpx;">
+<!--  -->
+  <goodlist goodsArr="{{goodsArr}}"></goodlist>
+</scroll-view>

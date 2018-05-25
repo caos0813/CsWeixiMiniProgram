@@ -1,0 +1,34 @@
+/* pages/brand/brandGoods/brandGoods.wxss */
+
+.header {
+  position: relative;
+}
+.header .banner {
+  display: block;
+  width: 100%;
+  height: 220rpx;
+}
+.header .logo {
+  width: 140rpx;
+  height: 140rpx;
+  position: absolute;
+  top: 120rpx;
+  left: 32rpx;
+  box-shadow: 0px 2rpx 8rpx 0px rgba(0,0,0,0.2) 
+}
+.description {
+  width: 100%;
+  height: 164rpx;
+  padding: 58rpx 36rpx 32rpx 32rpx;
+  font-size: 26rpx;
+  color: #999;
+  border-bottom: 1rpx solid #e5e5e5;
+  box-sizing: border-box;
+}
+.description text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,3 @@
+<!--pages/monthHot/monthHot.wxml-->
+<view class="line"></view>
+<goodlist goodsArr="{{goodsArr}}"></goodlist>

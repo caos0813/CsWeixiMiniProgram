@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "goodlist": "/components/goodList/goodList"
+  },
+  "navigationBarTitleText": "本月爆款"
+}

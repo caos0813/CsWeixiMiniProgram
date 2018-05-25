@@ -1,0 +1,25 @@
+/* pages/search/searchResult.wxss */
+@import "/components/searchInput/searchInput.wxss";
+.header{
+  background-color: #FAFAFA;
+  z-index: 1000;
+  position:fixed;
+width:100%;
+}
+.search-header {
+  padding: 10rpx 30rpx 20rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: #FAFAFA;
+}
+.emptyData{
+  padding:322rpx 290rpx;
+}
+.emptyData>image{
+width:164rpx;
+height:162rpx;
+}
+.emptyData>view{
+  font-size: 28rpx;
+  color: #999999;
+  padding-top:42rpx;
+}

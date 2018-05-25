@@ -1,0 +1,27 @@
+<view wx:if="{{goodsArr.length>0}}">
+  <view class="header">
+    <view class="search-header">
+      <view class="search-input">
+        <view class='icon'>
+          <icon type="search" size="13" />
+        </view>
+        <view class="input-wrapper">
+          <input class="input" value="{{searchValue}}" type="text" bindinput='onInput' bindfocus='onFocus' placeholder="搜索喜欢的商品吧" />
+        </view>
+        <view class='icon' wx:if="{{isValue}}">
+          <icon type="clear" bindtap='onClear' size="13" />
+        </view>
+      </view>
+    </view>
+    <view>
+      <filterbar bindchange="onChange" is-static filterBar="{{filterBar}}"></filterbar>
+    </view>
+  </view>
+  <scroll-view style="padding-top:200rpx;">
+    <goodlist goodsArr="{{goodsArr}}"></goodlist>
+    </scroll-view>
+</view>
+<view wx:else class="emptyData">
+  <image src='{{emptyImage}}' model='aspectFit'></image>
+  <view>没有相关商品</view>
+</view>

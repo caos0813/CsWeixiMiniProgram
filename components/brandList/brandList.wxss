@@ -1,0 +1,59 @@
+/* components/brandList/brandList.wxss */
+
+.brandlist-box {
+  padding: 40rpx 32rpx 0;
+}
+.brandlist-item {
+  margin-bottom: 40rpx;
+}
+.brand-pic {
+  position: relative;
+  width: 100%;
+  height: 292rpx;
+}
+.brand-pic image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 20rpx 20rpx 0 0;
+}
+
+.brand-info {
+  width: 100%;
+  height: 135rpx;
+  padding-top: 20rpx;
+  background-color: #fafafa;
+  border-radius: 0 0 20rpx 20rpx;
+}
+.brand-info view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bli-name {
+  padding-left: 24rpx;
+  font-size: 32rpx;
+}
+.bli-num {
+  padding-right: 45rpx;
+  font-size: 28rpx;
+}
+
+.brand-sub {
+  width: 100%;
+  margin-top: 10rpx;
+  padding-left: 24rpx;
+  font-size: 28rpx;
+  color: #999;
+  box-sizing: border-box;
+}
+.brand-sub text {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}

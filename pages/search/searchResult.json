@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "search-input": "/components/searchInput/searchInput",
+    "filterbar": "/components/filterBar/filterBar",
+    "goodlist": "/components/goodList/goodList"
+  },
+  "navigationBarTitleText": "搜索",
+  "navigationBarBackgroundColor": "#FAFAFA"
+}

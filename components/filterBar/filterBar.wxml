@@ -1,0 +1,16 @@
+<!-- components/filterBar/filterBar.wxml -->
+<view class="filter-wrap{{isStatic?' filter-wrap-static':''}}" >
+  <view class="filter-tab">
+    <view class="{{index==0?'active':''}}" data-index="1"  data-value="{{filterBar[0]}}" bindtap="change">
+      新品优先
+    </view>
+    <view class="{{index==1?'active':''}}" data-index="2"  data-value="{{filterBar[1]}}" bindtap="change">
+      综合
+    </view>
+    <view class="{{index==2?'active':''}}" data-index="3"  data-value="{{filterBar[2]}}" bindtap="change">销量</view>
+      <view data-index="4"  class="price {{(index==3&&isAsc?'asc':index==3?'desc':'')+(index==3?' active':'')}}" data-value="{{filterBar[3]}}" bindtap="change">价格<view> </view>
+    </view>  
+  </view>
+</view>
+
+

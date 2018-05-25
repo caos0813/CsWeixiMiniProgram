@@ -1,0 +1,11 @@
+<!--pages/brand/brandGoods/brandGoods.wxml-->
+<view>
+  <view class="header">
+    <image class="banner" src="https://img.manjd.net/bannerpic/750-330/20180518174501508.jpg"></image>
+    <image class="logo" src="https://img.manjd.net/spu/list/300-300/20180419112603598.jpg"></image>
+    <view class="description">
+      <text>奥迪双钻玩具实业有限公司成立于1993年，经过二十余年的 发展，奥迪玩具已经成长为中国玩具行业的发展，奥迪玩具已经成长为中国玩具行业的</text>
+    </view>
+  </view>
+  <goodlist goodsArr="{{goodsList}}"></goodlist>
+</view>

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "filterbar": "/components/filterBar/filterBar",
+    "goodlist": "/components/goodList/goodList"
+  },
+  "navigationBarTitleText":"新品推荐列表",
+  "navigationBarBackgroundColor": "#FAFAFA"
+}

@@ -1,0 +1,4 @@
+<filter-bar  wx:if="{{isShow}}" bind:change="bindFilterChange" >
+</filter-bar>
+<good-list wx:if="{{isShow}}" goods-arr="{{goodList}}"></good-list>
+<empty-goods wx:else></empty-goods>

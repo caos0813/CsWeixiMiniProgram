@@ -1,0 +1,10 @@
+<!--pages/brandSelection/brandSelection.wxml-->
+<view class="line"></view>
+<view class="wrap">
+  <scroll-view class="scroll" scroll-y style="height:100%" bindscrolltolower="loadMore">
+    <brandlist brandsArr="{{brandsArr}}"></brandlist>
+    <view class="loading-container">
+
+    </view>
+  </scroll-view>
+</view>

@@ -24,13 +24,54 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 3,
+			"list": [
+				{
+					"id": -1,
+					"name": "本月爆款",
+					"pathName": "pages/monthHot/monthHot",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "品牌热销榜",
+					"pathName": "pages/brandHot/brandHot",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "精选大牌",
+					"pathName": "pages/brandSelection/brandSelection",
+					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "分类详情",
+					"pathName": "pages/category/detail",
+					"query": "id=10030&catename=奶粉&sortid=358,359"
+				},
+				{
+					"id": -1,
+					"name": "分类首页",
+					"pathName": "pages/category/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "新品推荐",
+					"pathName": "pages/newProducts/list",
+					"query": ""
+				}
+			]
 		}
 	}
 }

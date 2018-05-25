@@ -1,14 +1,100 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<view class="container" id="index-wrap">
+  <view class="search-wrap">
+    <searchInput></searchInput>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class="swiper-wrap">
+    <swiper indicator-dots="true" autoplay="true" circular="true"
+    indicator-color="#cccccc" indicator-active-color="#ff681d">
+      <block wx:for="{{banner}}" wx:key="{{imte.bannerid}}">
+        <swiper-item>
+          <image src="{{item.bannerpic}}" mode="widthFix" class="slide-image"/>
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
-  <goodlist url="getListByCatalogId"></goodlist>
+  <view class="banner-sub">
+    <view class="sub-item"><view class="sub-icon"></view><text>正品保障</text></view>
+    <view class="sub-item"><view class="sub-icon"></view><text>全场包邮</text></view>
+    <view class="sub-item"><view class="sub-icon"></view><text>极速发货</text></view>
+    <view class="sub-item"><view class="sub-icon"></view><text>7天无理由退货</text></view>
+  </view>
+  <view class="mod-section mod-shop-handpicked">
+    <view class="mod-section__hd">
+      <view class="hd-title">店主精选</view>
+      <view class="sub-title">我的商品万里挑一</view>
+    </view>
+    <goodListThree goodListThreeLine="{{shopHandPicked}}"></goodListThree>
+  </view>
+  <view class="mod-section mod-brand-handpicked">
+    <view class="mod-section__hd">
+      <view class="hd-title">精选大牌</view>
+      <view class="sub-title">大品牌，有保障</view>
+    </view>
+    <view class="brand-list">
+      <view class="brand-list-ranking" >
+        <view class="ranking-item-pic" bindtap="goRankNav" data-id="{{item.coverid}}" wx:for="{{rankInfo}}" wx:key="{{item.coverid}}">
+          <image src="{{item.pic}}" mode="aspectFill"></image>
+        </view>
+      </view>
+      <view class="brand-list-box">
+        <view class="brand-list-item" wx:for="{{bigBrands}}" wx:key="{{item.index}}">
+          <view class="brand-list-big">
+            <image src="{{item[0].mainpagepic}}"></image>
+          </view>
+          <view class="brand-list-small">
+            <image src="{{item[1].mainpagepic}}"></image>
+            <image src="{{item[2].mainpagepic}}"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <navigator url="../brand/brandSelection/brandSelection" hover-class="none">
+      <view class="mod-section-ft">
+        <view class="ft-more">
+          <text>更多</text>
+          <view class="more-arrow"></view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+  <view class="mod-section mod-hot-goods">
+    <view class="mod-section__hd">
+      <view class="hd-title">火爆单品</view>
+      <view class="sub-title">最好卖的都在这了</view>
+    </view>
+    <goodListTwo goodListTwoLine="{{hotGoods}}"></goodListTwo>
+    <view class="mod-section-ft hasborder">
+      <view class="ft-more">
+        <text>更多</text>
+        <view class="more-arrow"></view>
+      </view>
+    </view>
+  </view>
+  <view class="ad">
+    <view class="ad-pic">
+      <image mode="widthFix" src="{{ad.displaypic}}"></image>
+    </view>
+  </view>
+  <view class="mod-section mod-new-products">
+    <view class="mod-section__hd">
+      <view class="hd-title">新品推荐</view>
+      <view class="sub-title">好货上新，抢先购！</view>
+    </view>
+    <goodListThree goodListThreeLine="{{newProducts}}"></goodListThree>
+    <view class="mod-section-ft hasborder">
+      <view class="ft-more">
+        <text>更多</text>
+        <view class="more-arrow"></view>
+      </view>
+    </view>
+  </view>
+  <view class="mod-section mod-guess-liked">
+    <view class="mod-section__hd">
+      <view class="hd-title">猜你喜欢</view>
+      <view class="sub-title">你喜欢的我都懂</view>
+    </view>
+    <goodListTwo goodListTwoLine="{{guessLiked}}"></goodListTwo>
+  </view>
+  <view class="go-top" wx:if="{{showGoTop}}" bindtap="goTop"></view>
 </view>

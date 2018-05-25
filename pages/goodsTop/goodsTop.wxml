@@ -1,0 +1,4 @@
+<!--pages/goodsTop/goodsTop.wxml-->
+<image class="banner" mode="widthFix"></image>
+<goodlist goodsArr="{{goodsTop}}"></goodlist>
+<view class="no-more" wx:if="{{isLoading}}">没有更多商品了</view>

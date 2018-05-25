@@ -19,7 +19,7 @@ const ARRAY_CORE = [],
     create = Object.create,
     emptyObject = create(null),
     getKeys = Object.keys,
-    hasOwnProperty = call(OBJECT_CORE.hasOwnProperty);
+    hasOwnProperty = call(OBJECT_CORE.hasOwnProperty),noop=function(){};
 
 
 
@@ -109,7 +109,9 @@ function extend() {
                 } else if (dep && isPlainObject(copy)) {
                     copy = extend(dep, isObject(src) ? src : {}, copy);
                 }
-                target[key] = copy;
+                if (copy!==undefined){
+                  target[key] = copy;
+                }
             }
         }
     }
@@ -122,21 +124,24 @@ function extend() {
 function wrapPromise(func) {
     return (options) => {
         return new Promise((resolve, reject) => {
-            let {
+          if (!isPlainObject(options)){         
+            options={};
+          }
+          let {
                 complete,
-                success,
-                fail
+            success,
+            fail
             } = options;
-            options.success = function (arg) {
-                resolve(arg);
-                success && success(arg);
-                complete && complete();
-            }
-            options.fail = function (arg) {
-                resolve(arg);
-                fail && fail(arg);
-                complete && complete();
-            }
+          options.success = function (arg) {
+            resolve(arg);
+            success && success(arg);
+            complete && complete();
+          }
+          options.fail = function (arg) {
+            resolve(arg);
+            fail && fail(arg);
+            complete && complete();
+          }
             func.call(this, options);
         })
     }
@@ -400,7 +405,136 @@ function mergeHandler(handlers) {
     }
     return handler;
 }
+class Scheduler{
+  constructor () {
+    this.queue = [];
+    this.pending = false;
+  }
+  flushCallback () {
+    var queue = this.queue.slice(), length = queue.length;
+    this.pending = false;
+    this.queue.length = 0;
+    for (var i = 0; i < length; i++) {
+      queue[i]();
+    }
+  }
+  executeQueue () {
+    var that = this;
+    that.pending = true;
+    setTimeout(function () {
+      that.flushCallback();
+    }, 0)
+  }
+  nextTick (callback) {
+    this.queue.push(callback)
+    if (!this.pending) {
+      this.executeQueue();
+    }
+  }
+}
 
+class Pager extends Observable{
+  constructor({ pageIndex = 1, pageSize = 10}){
+    super();
+    this.pageIndex = pageIndex;
+    this.pageSize = pageSize;
+    this.total = 0;
+    this.pageCount = 0;// 页总数
+    this.prevIndex=-1;
+    this._lock=false;//锁住
+  }
+  setTotal(total) {
+    this.total = total;
+    this.pageCount = Math.ceil(total / this.pageSize);
+    this._emit('pageCountChange')
+    this._emit('change')
+  }
+  _emit(name){
+    this.emit(name,this.pageIndex)
+  }
+  onChange(callback) {
+    this.on('change', callback)
+  }
+  onPageCountChange(callback){
+    this.on('pageCountChange', callback)
+  }
+  onPageChange(callback)
+  {
+    this.on('pageChange', callback)
+  }
+  onRefresh(callback){
+    this.on('refresh', callback)
+  }
+  unlock()
+  {
+    this._lock = false;
+  }
+  lock()
+  {
+    this._lock=true;
+  }
+  refresh () {
+    this.pageIndex=1;
+    this._emit('refresh')
+  }
+  render(){
+    this.skip(1, true);
+  }
+  skip(index,force) {
+    let pageCount = this.pageCount;
+    if (pageCount < 1 || this._lock)
+    {
+      return;
+    }
+    this.pageIndex = Math.max(Math.min(index, pageCount),1);
+    if (this.pageIndex !== this.prevIndex || force===true)
+    {
+      this.prevIndex = this.pageIndex;
+      this._emit('pageChange')
+      this._emit('change')
+    }
+  }
+  prev(){
+    this.skip(this.pageIndex-1);
+  }
+  next() {
+    this.skip(this.pageIndex+1);
+  }
+}
+
+class PageScroll{
+  constructor(scrollPosition)
+  {
+     this.prevScrollPosition=null;
+     this.scrolling=false;
+     this.scrollPosition = scrollPosition;
+  }
+  onUp(callback)
+  {
+    this._upcallback = callback || noop;
+  }
+  onDown(callback){
+    this._downcallback = callback || noop;
+  }
+  scroll(val){
+    if (!this.prevScrollPosition) {
+      this.prevScrollPosition=val;
+    }
+    var down = false, scrolling = this.scrolling, scrollPosition = this.scrollPosition;
+    if (val > this.prevScrollPosition) {
+      down = true;
+    }
+    if (down && !scrolling && val > scrollPosition) {
+      scrolling = true;
+      this._downcallback();
+    } else if (!down && scrolling && val <= scrollPosition) {
+      scrolling = false;
+      this._upcallback();
+    }
+    this.prevScrollPosition=val;
+    this.scrolling = scrolling;
+  }
+}
 
 module.exports = {
     Observable,
@@ -422,5 +556,8 @@ module.exports = {
     formatTime,
     wrapPromise,
     Callbacks,
-    mergeHandler
+    mergeHandler,
+    Scheduler,
+    Pager,
+    PageScroll
 }

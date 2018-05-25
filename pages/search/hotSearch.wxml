@@ -1,0 +1,31 @@
+<view class="search-header">
+  <view class="search-input">
+    <view class='icon'>
+      <icon type="search" size="13" />
+    </view>
+    <view class="input-wrapper">
+      <input class="input" value="{{searchValue}}" type="text" bindinput='onInput' confirm-type="search" bindconfirm="onConfirm" placeholder="搜索喜欢的商品吧" />
+    </view>
+    <view class='icon' wx:if="{{isValue}}">
+      <icon type="clear" bindtap='onClear' size="13" />
+    </view>
+  </view>
+  <text class="cancel" bindtap='onCancel'>取消</text>
+</view>
+<view class="history" wx:if="{{historyList.length>0}}">
+  <view class="header">
+    <text class="title">历史记录</text>
+    <view bindtap='onClearHistory'></view>
+  </view>
+  <block wx:for="{{historyList}}" wx:key="{{index}}">
+    <text data-item="{{item}}" bindtap='onSearch'>{{item}}</text>
+  </block>
+</view>
+<view class="hot-search">
+  <view class="header">
+    <text class="title">热门搜索</text>
+  </view>
+  <block wx:for="{{hotSearchList}}" wx:key="{{index}}">
+    <text data-item="{{item}}" bindtap='onSearch'>{{item}}</text>
+  </block>
+</view>

@@ -1,0 +1,3 @@
+<!--pages/brandHot/brandHot.wxml-->
+<view class="line"></view>
+<brandlist brandsArr="{{brandsArr}}"></brandlist>

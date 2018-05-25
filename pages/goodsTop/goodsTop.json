@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "goodlist": "/components/goodList/goodList"
+  },
+  "navigationBarTitleText": "单品热销榜"
+}

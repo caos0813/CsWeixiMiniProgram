@@ -1,5 +1,26 @@
 <!--components/goodList/goodList.wxml-->
-<text>
-{{userName}}
-{{data}}
-</text>
+
+<wxs src="../../utils/tools.wxs" module="tools" />
+  <scroll-view scroll-y>
+<view class="goodslist-box">
+  <view wx:for="{{goodsArr}}" wx:key="{{spuid}}" class="goodslist-item">
+    <view class="goodslist-pic">
+      <image src="{{item.goodslistpicurl}}"></image>
+      <view class="gl-saleover" wx:if="{{!!issoldout}}">
+        <view class="saleover">
+          <text class="saleover-txt">/ 已售完 /</text>
+        </view>
+      </view>
+    </view>
+    <view class="goodslist-info">
+      <view class="gl-name-wrap">
+        <text>{{item.goodsname}}</text>
+      </view>
+      <view class="gl-price">
+        <text>¥{{tools.toFix(item.goodsprice)}}</text>
+        <text wx:if="{{item.marketprice > 0}}" class="market-price">¥{{tools.toFix(item.marketprice)}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+</scroll-view>

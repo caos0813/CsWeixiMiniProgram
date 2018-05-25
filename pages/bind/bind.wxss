@@ -1,0 +1,80 @@
+/* pages/bind/bind.wxss */
+.wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 80rpx 40rpx 0;
+}
+.logo {
+  display: block;
+  width: 120rpx;
+  height: 144rpx;
+  margin: 0 auto 116rpx;
+}
+.submit {
+  margin-top: 120rpx;
+  background: #FF681D;
+  border: none;
+  font-size: 36rpx;
+  color: #fff;
+  border-radius: 10rpx;
+}
+button::after {
+  border: none;
+}
+.txt {
+  text-align: center;
+  font-size: 28rpx;
+  color: #999;
+  line-height: 40rpx;
+  margin-top: 32rpx;
+}
+.txt text {
+  color: #2A64FF;
+}
+
+
+.ipt-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 84rpx;
+  border-bottom: 1rpx solid #d9d9d9;
+  font-size: 32rpx;
+}
+.phone-wrap {
+  padding-right: 34rpx;
+}
+.ipt-wrap text {
+  line-height: 45rpx;
+}
+input {
+  flex: 1;
+  margin-left: 40rpx;
+  height: 45rpx;
+  font-size: 32rpx;
+}
+.code-btn {
+  width: 225rpx;
+  height: 56rpx;
+  margin-left: 18rpx;
+  border-left: 1rpx solid #e5e5e5;
+  padding: 0;
+  line-height: 56rpx;
+  color: #666;
+  font-size: 28rpx;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+.code-btn.countdown {
+  color: #666;
+  margin: 16rpx;
+}
+.icon-wrap {
+  display: flex;
+  align-items: center;
+  padding: 12rpx;
+}
