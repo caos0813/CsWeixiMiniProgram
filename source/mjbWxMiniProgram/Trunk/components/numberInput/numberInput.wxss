@@ -1,0 +1,57 @@
+
+/**数字输入框***/
+.number-input-wrap{
+  width: 260rpx;
+  display: flex;
+}
+.number-input-wrap.normal>view,.number-input-wrap.normal>input
+{
+    height: 60rpx;
+    line-height: 60rpx;
+}
+.number-input-wrap.normal>.number-input-minus,.number-input-wrap.normal>.number-input-add{
+  width:80rpx;
+  font-size: 50rpx;
+ 
+}
+.number-input-wrap.normal>.number-input{
+  width:100rpx;
+}
+
+.number-input-wrap.small>view,.number-input-wrap.small>input
+{
+  height: 50rpx;
+  line-height: 50rpx;
+}
+.number-input-wrap.small>.number-input-minus,.number-input-wrap.small>.number-input-add{
+  width:60rpx;
+  font-size: 30rpx; 
+}
+.number-input-wrap.small>.number-input{
+  width:70rpx;
+}
+
+.number-input-wrap>.number-input-minus,.number-input-wrap>.number-input-add,.number-input-wrap>.number-input{
+  border:1px solid rgba(204,204,204,1);
+  text-align: center;
+}
+.number-input-wrap>.number-input-minus{
+  border-top-left-radius: 6rpx;
+  border-bottom-left-radius: 6rpx;
+}
+.number-input-wrap>.number-input-add{
+  border-top-right-radius: 6rpx;
+  border-bottom-right-radius: 6rpx;
+}
+.number-input-wrap>.disabled{
+  background-color: #E5E5E5;
+}
+.number-input-wrap>.number-input{
+  border-right: 0;
+  border-left: 0;
+}
+.number-input-wrap>.number-input-minus:not(.disabled):active,.number-input-wrap>.number-input-add:not(.disabled):active
+{
+    color: #ff681d;
+    border-color: #ff681d;
+}

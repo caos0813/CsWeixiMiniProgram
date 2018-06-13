@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "confirmOrder": "/components/confirmOrder/confirmOrder"
+  },
+  "navigationBarBackgroundColor": "#fff"
+}

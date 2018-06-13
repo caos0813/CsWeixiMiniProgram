@@ -1,0 +1,43 @@
+var toFix = function(val) {
+  if(val) {
+    return val.toFixed(2)
+  }
+}
+
+var getGoodsQty = function(arr) {
+  var num = 0;
+  for(var i=0; i<arr.length; i++) {
+    num += arr[i].qty
+  }
+  return num;
+}
+
+function fixZero(param) {
+  return param < 10 ? '0' + param : param;
+}
+var formatTime = function(seconds) {
+  var min = Math.floor(seconds / 60);
+  var sec = Math.floor(seconds % 60);
+  return fixZero(min) + ':' + fixZero(sec)
+}
+// 去掉时间毫秒
+var clearTime = function(timeStr) {
+  if(timeStr) {
+    var str = timeStr.slice(0, 19);
+    return str;
+  }
+}
+
+//获取已选规格
+var getCheckedSpec=function(skuid,list)
+{
+
+}
+
+module.exports = {
+  toFix: toFix,
+  getGoodsQty: getGoodsQty,
+  formatTime: formatTime,
+  clearTime: clearTime,
+  getCheckedSpec: getCheckedSpec
+};

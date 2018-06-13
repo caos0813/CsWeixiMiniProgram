@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "提交订单",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+        "dialog": "/components/dialog/dialog"
+  },
+  "disableScroll": false,
+  "onReachBottomDistance": 50,
+  "backgroundTextStyle": "dark"
+}

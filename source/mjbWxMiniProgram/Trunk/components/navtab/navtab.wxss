@@ -1,0 +1,29 @@
+/* components/navtab/navtab.wxss */
+.tab-wrap{
+  font-size: 28rpx;
+}
+.tab-head{
+    background-color: #ffffff;
+}
+.tabs{
+    display: flex;
+    border: 1rpx solid rgba(229,229,229,1);
+}
+.tab-item{
+  color: #333333;
+  flex-grow: 1;
+  text-align: center;
+  background-color: #ffffff;
+  line-height: 100rpx;
+}
+.tab-item.active{
+  color: #FF681D;
+}
+.tab-item.active>view::after{
+   content: '';
+   display: block;
+  border-bottom:4rpx solid #FF681D;
+}
+.tab-item>view{
+  display:inline-block;
+}

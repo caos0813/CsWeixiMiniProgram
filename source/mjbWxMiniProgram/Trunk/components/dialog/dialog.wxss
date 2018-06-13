@@ -1,0 +1,48 @@
+.dialog-wrap{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1050;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 28rpx;
+  color: #333333;
+}
+.dialog-modal{
+   width: 600rpx;  
+   margin: 300rpx auto;
+   background-color: #ffffff;
+   border-radius: 6rpx;
+   box-shadow: 0 0 0 1 rgba(0, 0, 0, 0.5);
+}
+.head{
+  padding: 24rpx 15rpx 20rpx;
+}
+.title{
+  font-size: 28rpx;
+  color: #FF681D;
+}
+.content{
+  padding: 15rpx;
+}
+.footer{
+  display: flex;
+  
+}
+.footer .button{
+  flex-grow: 1;
+}
+.button{
+    font-size: 30rpx;
+     border-top: 1px solid #dedede;
+     text-align: center;
+     line-height: 100rpx;
+     height: 100rpx;
+}
+.button:last-child{
+  border-left: 1px solid #dedede;
+}
+.button.confirm{
+  color: green;
+}

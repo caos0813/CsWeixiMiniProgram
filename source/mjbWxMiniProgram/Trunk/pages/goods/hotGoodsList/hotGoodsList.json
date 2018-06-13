@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "火爆单品",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "good-list": "/components/goodList/goodList",
+    "filter-bar": "/components/filterBar/filterBar",
+    "loading": "/components/loading/loading",
+    "empty-goods": "/components/empty/emptyGood"
+  },
+  "disableScroll": false,
+  "onReachBottomDistance": 50,
+  "backgroundTextStyle": "dark"
+}

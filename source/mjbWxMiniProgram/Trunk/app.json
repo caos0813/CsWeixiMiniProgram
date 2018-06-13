@@ -1,0 +1,78 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/goods/monthHot/monthHot",
+    "pages/brand/brandHot/brandHot",
+    "pages/brand/brandSelection/brandSelection",
+    "pages/bind/bind",
+    "pages/category/index",
+    "pages/category/detail",
+    "pages/bind/agreement",
+    "pages/goods/goodsTop/goodsTop",
+    "pages/brand/brandGoods/brandGoods",
+    "pages/goods/newProducts/list",
+    "pages/search/search",
+    "pages/goods/hotGoodsList/hotGoodsList",
+    "pages/order/detail/detail",
+    "pages/personal/personal",
+    "pages/order/list/list",
+    "pages/evaluate/evaluate",
+    "pages/logistics/logistics",
+    "pages/goods/goodsDetail/goodsDetail",
+    "pages/address/manager",
+    "pages/address/newAddress",
+    "pages/address/selManager",
+    "pages/evaluate/nowEvaluate",
+    "pages/cart/cartList",
+    "pages/goods/goodsEvaluate/goodsEvaluate",
+    "pages/order/submitOrder/submitOrder",
+    "pages/order/submitOrder/result",
+    "pages/order/submitOrder/addInvoice",
+    "pages/evaluate/evalSuccess"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fafafa",
+    "navigationBarTitleText": "满金店",
+    "navigationBarTextStyle": "black"
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "connectSocket": 60000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+  "tabBar": {
+    "color": "#808080",
+    "selectedColor": "#FF681D",
+    "backgroundColor": "#FAFAFA",
+    "position": "bottom",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "店铺首页",
+        "iconPath": "assets/images/tab-bar/un-home.png",
+        "selectedIconPath": "assets/images/tab-bar/home.png"
+      },
+      {
+        "pagePath": "pages/category/index",
+        "text": "分类",
+        "iconPath": "assets/images/tab-bar/un-category.png",
+        "selectedIconPath": "assets/images/tab-bar/category.png"
+      },
+      {
+        "pagePath": "pages/cart/cartList",
+        "text": "购物车",
+        "iconPath": "assets/images/tab-bar/un-shopping-cart.png",
+        "selectedIconPath": "assets/images/tab-bar/shopping-cart.png"
+      },
+      {
+        "pagePath": "pages/personal/personal",
+        "text": "个人中心",
+        "iconPath": "assets/images/tab-bar/un-personal.png",
+        "selectedIconPath": "assets/images/tab-bar/personal.png"
+      }
+    ]
+  }
+}

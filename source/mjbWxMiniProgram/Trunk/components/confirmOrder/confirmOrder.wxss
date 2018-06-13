@@ -1,0 +1,19 @@
+/* components/confirmOrder/confirmOrder.wxss */
+
+.confirm-order-btn {
+  width:180rpx;
+  height:64rpx;
+  line-height:64rpx;
+  text-align:center;
+  margin-left:40rpx;
+  border-radius:4rpx;
+  border:1rpx solid #ccc;
+  color:#666;
+  font-size: 28rpx;
+  padding: 0;
+  box-sizing: content-box;
+  background-color: #fff;
+}
+button::after {
+  border: none;
+}

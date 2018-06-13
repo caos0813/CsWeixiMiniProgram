@@ -1,0 +1,157 @@
+/**index.wxss**/
+.container {
+  background-color: #f6f6f6;
+}
+.search-wrap {
+  padding: 5rpx 32rpx 23rpx;
+  background-color: #fafafa;
+}
+.swiper-wrap {
+  width: 100%;
+  height: 330rpx;
+}
+.swiper-wrap swiper {
+  height: 100%;
+}
+.swiper-wrap image {
+  width: 100%;
+  height: 100%;
+}
+
+.banner-sub {
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 24rpx;
+  background-color: #fff;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+.banner-sub .sub-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sub-item .sub-icon {
+  width: 24rpx;
+  height: 24rpx;
+  background-image: url(https://devskin.manjd.net/miniprogram/images/home-sign.png);
+  background-size: 100%;
+  margin-right: 9rpx;
+}
+
+.mod-section {
+  background-color: #fff;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+.mod-section__hd {
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+.hd-title {
+  padding-left: 20rpx;
+  position: relative;
+  font-size: 30rpx;
+}
+.hd-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1rpx;
+  bottom: 0;
+  width: 6rpx;
+  border-radius: 4rpx;
+  background-color: #ff681d;
+}
+.sub-title {
+  font-size: 24rpx;
+  color: #999;
+  margin-left: 26rpx;
+}
+
+.brand-list-ranking {
+  display: flex;
+  justify-content: space-between;
+}
+.brand-list-ranking .ranking-item-pic {
+  width: 210rpx;
+  height: 280rpx;
+  background-color: #f5f5f5;
+}
+.brand-list-ranking .ranking-item-pic image {
+  width: 100%;
+  height: 100%;
+}
+
+.brand-list-item {
+  display: flex;
+  justify-content: space-between;
+  height: 300rpx;
+  margin-top: 20rpx;
+}
+.brand-list-item .brand-list-big {
+  width: 448rpx;
+  height: 100%;
+}
+.brand-list-item .brand-list-big image {
+  width: 448rpx;
+  height: 300rpx;
+}
+.brand-list-item .brand-list-small {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.brand-list-item .brand-list-small image {
+  width: 210rpx;
+  height: 140rpx;
+  display: block;
+}
+
+.mod-section-ft {
+  width: auto;
+  height: 88rpx;
+  margin-top: 10rpx;
+}
+.ft-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 30rpx;
+}
+.ft-more .more-arrow {
+  width: 18rpx;
+  height: 28rpx;
+  margin-left: 14rpx;
+  background-image: url(https://devskin.manjd.net/miniprogram/images/home-arrow.png);
+  background-size: 100%;
+}
+.hasborder {
+  position: relative;
+  margin: 0 -32rpx;
+}
+.hasborder::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e6e6e6;
+}
+
+.ad {
+  width: 100%;
+  height: 200rpx;
+}
+.ad image {
+  width: 100%;
+  height: 100%;
+}
+

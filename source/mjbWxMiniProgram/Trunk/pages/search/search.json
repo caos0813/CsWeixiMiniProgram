@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "搜索",
+  "usingComponents": {
+    "filter-bar": "/components/filterBar/filterBar",
+    "good-list": "/components/goodList/goodList",
+    "empty-goods": "/components/empty/emptyGood"
+  },
+  "disableScroll": false,
+  "enablePullDownRefresh": false,
+  "backgroundTextStyle":"dark"
+}

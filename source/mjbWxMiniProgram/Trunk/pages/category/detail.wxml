@@ -1,0 +1,8 @@
+<filter-bar  wx:if="{{isShow}}" bind:change="bindFilterChange" >
+</filter-bar>
+<good-list wx:if="{{isShow}}" goods-arr="{{goodList}}"  ></good-list>
+<empty-goods wx:if="{{!isShow}}"></empty-goods>
+ <view class="loading-container" wx:if="loading>0">
+    <view class="is-loading" wx:if="{{loading==1}}"><view class="loading-icon"></view>正在加载中</view>
+    <view class="no-more" wx:if="{{loading==2}}">没有更多啦~</view>
+  </view>

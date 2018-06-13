@@ -1,0 +1,18 @@
+/* components/star/star.wxss */
+.start-wrap{
+  
+}
+.start-wrap::after{
+  display:block;
+  content: '';
+  clear:both;
+}
+.start-wrap view{
+    color: #FF681D;
+    float: left;
+    font-size: 38rpx;
+    margin-left: 10rpx;
+}
+.start-wrap .ative~view{
+    color: #CCCCCC;
+}

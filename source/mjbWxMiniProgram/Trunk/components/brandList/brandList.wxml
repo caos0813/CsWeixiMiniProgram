@@ -1,0 +1,19 @@
+<!--components/brandList/brandList.wxml-->
+<view class="brandlist-box">
+  <view wx:for="{{brandsArr}}" wx:key="{{brandid}}" class="brandlist-item">
+    <navigator url="../brandGoods/brandGoods?brandid={{item.brandid}}&brandname={{item.brandname}}&brandlogo={{item.brandlogo}}&brandbackgrdpic={{item.brandbackgrdpic}}&brandbriefintro={{item.brandbriefintro}}" hover-class="none">
+      <view class="brand-pic">
+        <image src="{{item.listpagepic}}"></image>
+      </view>
+      <view class="brand-info">
+        <view>
+          <text class="bli-name">{{item.brandname}}</text>
+          <text class="bli-num">商品数: {{item.spunum}}</text>
+        </view>
+        <view class="brand-sub">
+          <text>{{item.slogan}}</text>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>

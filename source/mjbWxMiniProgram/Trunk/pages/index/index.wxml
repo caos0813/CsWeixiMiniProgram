@@ -1,0 +1,125 @@
+<!--index.wxml-->
+<view class="container" id="index-wrap">
+  <view class="search-wrap">
+    <searchInput></searchInput>
+  </view>
+  <view class="swiper-wrap">
+    <swiper indicator-dots="true" autoplay="true" circular="true" indicator-color="#cccccc" indicator-active-color="#ff681d">
+      <navigator wx:for="{{banner}}" wx:key="{{item.bannerid}}" hover-class="none" url="/pages/goods/goodsDetail/goodsDetail?spuid={{item.bannerlink}}">
+        <swiper-item>
+          <image src="{{item.bannerpic}}" mode="widthFix" class="slide-image" />
+        </swiper-item>
+      </navigator>
+    </swiper>
+  </view>
+  <view class="banner-sub">
+    <view class="sub-item">
+      <view class="sub-icon"></view>
+      <text>正品保障</text>
+    </view>
+    <view class="sub-item">
+      <view class="sub-icon"></view>
+      <text>全场包邮</text>
+    </view>
+    <view class="sub-item">
+      <view class="sub-icon"></view>
+      <text>极速发货</text>
+    </view>
+    <!-- <view class="sub-item">
+      <view class="sub-icon"></view>
+      <text>7天无理由退货</text>
+    </view> -->
+  </view>
+  <view class="mod-section mod-shop-handpicked">
+    <view class="mod-section__hd">
+      <view class="hd-title">店主精选</view>
+      <view class="sub-title">我的商品万里挑一</view>
+    </view>
+    <goodListThree goodListThreeLine="{{shopHandPicked}}"></goodListThree>
+  </view>
+  <view class="mod-section mod-brand-handpicked">
+    <view class="mod-section__hd">
+      <view class="hd-title">精选大牌</view>
+      <view class="sub-title">大品牌，有保障</view>
+    </view>
+    <view class="brand-list">
+      <view class="brand-list-ranking">
+        <view class="ranking-item-pic" bindtap="goRankNav" data-id="{{item.coverid}}" wx:for="{{rankInfo}}" wx:key="{{item.coverid}}">
+          <image src="{{item.pic}}" mode="aspectFill"></image>
+        </view>
+      </view>
+      <view class="brand-list-box">
+        <view class="brand-list-item" wx:for="{{bigBrands}}" wx:key="{{item.index}}">
+          <view class="brand-list-big">
+            <navigator hover-class="none" url="/pages/brand/brandGoods/brandGoods?brandid={{item[0].brandid}}&brandname={{item[0].brandname}}&brandlogo={{item[0].brandlogo}}&brandbackgrdpic={{item[0].brandbackgrdpic}}&brandbriefintro={{item[0].brandbriefintro}}">
+              <image src="{{item[0].mainpagepic}}"></image>
+            </navigator>
+          </view>
+          <view class="brand-list-small">
+            <navigator hover-class="none" url="/pages/brand/brandGoods/brandGoods?brandid={{item[1].brandid}}&brandname={{item[1].brandname}}&brandlogo={{item[1].brandlogo}}&brandbackgrdpic={{item[1].brandbackgrdpic}}&brandbriefintro={{item[1].brandbriefintro}}">
+              <image src="{{item[1].mainpagepic}}"></image>
+            </navigator>
+            <navigator hover-class="none" url="/pages/brand/brandGoods/brandGoods?brandid={{item[2].brandid}}&brandname={{item[2].brandname}}&brandlogo={{item[2].brandlogo}}&brandbackgrdpic={{item[2].brandbackgrdpic}}&brandbriefintro={{item[2].brandbriefintro}}">
+              <image src="{{item[2].mainpagepic}}"></image>
+            </navigator>
+          </view>
+        </view>
+      </view>
+    </view>
+    <navigator url="/pages/brand/brandSelection/brandSelection" hover-class="none">
+      <view class="mod-section-ft">
+        <view class="ft-more">
+          <text>更多</text>
+          <view class="more-arrow"></view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+  <view class="mod-section mod-hot-goods">
+    <view class="mod-section__hd">
+      <view class="hd-title">火爆单品</view>
+      <view class="sub-title">最好卖的都在这了</view>
+    </view>
+    <goodListTwo goodListTwoLine="{{hotGoods}}"></goodListTwo>
+    <navigator url="/pages/goods/hotGoodsList/hotGoodsList" hover-class="none">
+      <view class="mod-section-ft hasborder">
+        <view class="ft-more">
+          <text>更多</text>
+          <view class="more-arrow"></view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+  <view class="swiper-wrap ad">
+    <swiper indicator-dots="true" autoplay="true" circular="true" indicator-color="#cccccc" indicator-active-color="#ff681d">
+      <navigator wx:for="{{ad}}" wx:key="{{item.referencevalue}}" hover-class="none" url="/pages/goods/goodsDetail/goodsDetail?spuid={{item.referencevalue}}">
+        <swiper-item>
+          <image src="{{item.displaypic}}" mode="widthFix" class="slide-image" />
+        </swiper-item>
+      </navigator>
+    </swiper>
+  </view>
+  <view class="mod-section mod-new-products">
+    <view class="mod-section__hd">
+      <view class="hd-title">新品推荐</view>
+      <view class="sub-title">好货上新，抢先购！</view>
+    </view>
+    <goodListThree goodListThreeLine="{{newProducts}}"></goodListThree>
+    <navigator url="/pages/goods/newProducts/list" hover-class="none">
+      <view class="mod-section-ft hasborder">
+        <view class="ft-more">
+          <text>更多</text>
+          <view class="more-arrow"></view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+  <view class="mod-section mod-guess-liked">
+    <view class="mod-section__hd">
+      <view class="hd-title">猜你喜欢</view>
+      <view class="sub-title">你喜欢的我都懂</view>
+    </view>
+    <goodListTwo goodListTwoLine="{{guessLiked}}"></goodListTwo>
+  </view>
+  <view class="go-top" wx:if="{{showGoTop}}" bindtap="goTop"></view>
+</view>

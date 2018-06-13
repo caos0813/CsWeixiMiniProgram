@@ -1,0 +1,110 @@
+page{
+   font-size: 26rpx;
+   padding-bottom: 100rpx;
+}
+.form-item{
+  padding:32rpx;
+  border-bottom: 1px solid #E5E5E5;
+}
+.form-item.noborder{
+    border-bottom: 0;
+}
+.form-item .label{
+  color: #333333;
+  font-size: 28rpx;
+}
+.form-item .group{
+  margin-top: 16rpx;
+}
+.radio-btns{
+  display: flex;
+  font-size: 26rpx;
+  margin-left: -50rpx;
+}
+.radio-btns>view{
+  padding:12rpx;
+  border: 1rpx solid #CCCCCC;
+  border-radius: 6rpx;
+  color: #333333;
+  min-width: 116rpx;
+  text-align: center;
+  margin-left: 50rpx;
+}
+.radio-btns>view.active{
+  color: #FF681D;
+   border-color: #FF681D;
+}
+.input-text{
+  border:1px solid #ced4da;
+  border-radius: 6rpx;
+  width: 100%;
+  padding: 6rpx 6rpx;
+  height: 36rpx;
+  font-size: 26rpx;
+  color: #333333;
+}
+.input-text:focus{
+    border-color: #FF681D;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.company-form,.personal{
+  margin-bottom: 24rpx;
+}
+.company-form>view{
+    display: flex;
+    align-items: center;
+    padding-bottom: 24rpx;
+}
+.company-form>view.invoice-line{
+   border-bottom: 1px solid #E5E5E5;
+}
+.company-form>view:nth-child(n+2){
+  margin-top: 24rpx;
+}
+.company-form .label{
+  width: 120rpx;
+}
+.company-form .control{
+  flex-grow: 1;
+}
+.invoice-tip,.invoice-tip2{
+  font-size: 24rpx;
+  color: #999999;
+}
+.invoice-tip2{
+  margin-top: 24rpx;
+}
+.invoice-tip2>view{
+  padding-bottom: 8rpx;
+}
+.required::before{
+  content: '*';
+  color: red;
+}
+.buttons{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 750rpx;
+  box-sizing: border-box;
+  box-shadow:0px -1px 2px 1px rgba(0,0,0,0.12);
+}
+.btn{
+  margin: 0;
+  padding: 0;
+  width: 750rpx;
+  font-size: 30rpx;
+  height: 98rpx;
+  text-align: center;
+  line-height: 98rpx;
+  border-radius:0;
+  border:0;
+  background-color: #FF681D;
+  color: #ffffff;
+}
+.btn::after{
+  border: 0;
+}

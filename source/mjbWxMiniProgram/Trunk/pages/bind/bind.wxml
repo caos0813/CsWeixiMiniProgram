@@ -1,0 +1,20 @@
+<!--pages/bind/bind.wxml-->
+<view class="line"></view>
+<view class="wrap">
+  <image class="logo" src="{{logo}}"></image>
+  <view class="ipt-wrap phone-wrap">
+    <text>手机号</text>
+    <input value="{{phone}}" type="number" maxlength="11" placeholder="请输入手机号"
+      bindinput="bindPhoneInput" bindfocus="phoneFocus" bindblur="phoneBlur"></input>
+    <view class="icon-wrap" catch:tap="clearPhone"><icon size="16" type="clear" wx:if="{{phone.length > 0 && isPhoneFocus}}"></icon></view>
+  </view>
+  <view class="ipt-wrap code-wrap">
+    <text>验证码</text>
+    <input value="{{code}}" type="number" maxlength="6" placeholder="请输入验证码"
+      bindinput="bindCodeInput" bindfocus="codeFocus" bindblur="codeBlur"></input>
+    <view class="icon-wrap" catch:tap="clearCode"><icon size="16" type="clear" wx:if="{{code.length > 0 && isCodeFocus}}"></icon></view>
+    <button class="code-btn {{captchaDisabled ? 'countdown' : ''}}" hover-class="none" bind:tap="captcha">{{captchaLabel}}</button>
+  </view>
+  <button class="submit" bind:tap="submit" hover-class="none">提交</button>
+  <view class="txt">登录即视为遵守<text bind:tap="goAgreement">《用户使用协议》</text></view>
+</view>

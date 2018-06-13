@@ -1,0 +1,78 @@
+<form bind:submit="onSubmit" class="form">
+  <view class="form-item">
+    <view class="label">是否开票</view>
+    <view class="group">
+      <view class="radio-btns"  bind:tap="onNeedInvoice">
+        <view class="{{needInvoice==1?'active':''}}" data-value="1">不开票</view>
+        <view class="{{needInvoice==2?'active':''}}" data-value="2">开票</view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{needInvoice==2}}">
+  <view class="form-item">
+    <view class="label">发票类型</view>
+    <view class="group">
+      <view class="radio-btns">
+        <view class="active">普通发票</view>
+      </view>
+    </view>
+  </view>
+  <view class="form-item">
+    <view class="label">发票抬头</view>
+    <view class="group">
+      <view class="radio-btns" bind:tap="onInvoiceTitleType">
+        <view class="{{invoiceTitleType==1?'active':''}}" data-value="1">个人</view>
+        <view class="{{invoiceTitleType==2?'active':''}}" data-value="2">单位</view>
+      </view>
+    </view>
+    <view class="group invoice-info" >
+      <view  wx:if="{{invoiceTitleType==1}}">
+        <input type="text" class="input-text"  value="{{personal}}"  name="personal" value="个人" />
+      </view>
+      <view wx:elif="{{invoiceTitleType==2}}">
+        <view >
+          <input type="text" class="input-text" name="companyName" value="{{companyName}}" placeholder="请填写企业名称" />
+        </view>
+        <view style='margin-top:20rpx'>
+          <input type="text" class="input-text" name="companyTax" value="{{companyTax}}" placeholder="请填写纳税人识别号" />
+        </view>
+      </view>
+    </view>
+
+  </view>
+  <view class="form-item">
+    <view class="company-form" >
+      <view class="invoice-line">
+        <view class="label required">手机号</view>
+        <view class="control">
+          <input type="text" placeholder="请输入手机号" name="mobile" value="{{mobile}}" class="input-text" />
+        </view>
+      </view>
+      <view class="invoice-line">
+        <view class="label">邮箱</view>
+        <view class="control">
+          <input type="text" placeholder="用来接收电子邮件(非必填)" value="{{email}}" name="email" class="input-text" />
+        </view>
+      </view>
+    </view>
+    <view class="invoice-tip">
+      发票内容选项已根据税法调整，具体请已票据为准
+    </view>
+  </view>
+
+    <view class="form-item noborder">
+      <view class="radio-btns">
+        <view class="active">商品明细</view>
+      </view>
+       <view class="invoice-tip2">
+      <view>发票内容选项已根据税法调整，具体请已票据为准</view>
+      <view>发票内容将显示本单商品所属类别属性及价格信息</view>
+    </view>
+
+    </view>
+          </view>
+    <view class="buttons">
+    <button class="btn" form-type="submit">确定</button>
+    </view>
+
+</form>

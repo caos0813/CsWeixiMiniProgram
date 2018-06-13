@@ -1,0 +1,71 @@
+/* components/bottommenu/bottommenu.wxss */
+.menu-back{
+  position:fixed;
+  left:0;
+  bottom: 0;
+  background-color: transparent;
+  right: 0;
+  top: 0;
+  z-index: 9;
+  background:rgba(0,0,0,0.5);
+  touch-action: none;
+}
+.bounceDown{
+  transform:translateY(100%);
+}
+
+.hide{
+  display: none;
+}
+.menu{
+    touch-action: none;
+  position:fixed;
+  left:0;
+  bottom: 0;
+  background-color: #fff;
+  z-index: 10;
+  right: 0;
+  transition:transform ease 300ms;
+   transform:translateY(100%);
+   padding-top: 24rpx;
+   padding-bottom: 30rpx;
+}
+.menu.bounceUp{
+  transform:translateY(0%);
+}
+.menu .content,.menu .head{
+  padding:0rpx 30rpx;
+}
+.menu .head{
+  display: flex;
+  justify-content: flex-end;
+}
+.buttons{
+  position: absolute;
+  bottom:0;
+  left: 0;
+  right: 0;
+  display: flex;
+}
+.buttons>view{
+  height: 98rpx;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 32rpx;
+}
+.buttons>view:first-child{
+  background-color: #FFA71D;
+}
+.buttons>view:last-child{
+  background-color: #FF681D;
+}
+.menu.paddingBottom{
+  padding-bottom: 130rpx;
+}
+.buttons>view.disabled{
+    background-color: #E5E5E5;
+    color: #666666;
+}

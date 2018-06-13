@@ -1,0 +1,2 @@
+<!--pages/bind/agreement.wxml-->
+<web-view src="https://h5.manjd.com/useragreement"></web-view>

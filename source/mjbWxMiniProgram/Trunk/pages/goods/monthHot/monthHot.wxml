@@ -1,0 +1,4 @@
+<!--pages/monthHot/monthHot.wxml-->
+<view class="line"></view>
+<goodlist goodsArr="{{goodsArr}}"></goodlist>
+<view class="no-more" wx:if="{{isLoading}}">没有更多啦~</view>

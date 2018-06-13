@@ -1,0 +1,16 @@
+<!--components/goodList/goodList2line.wxml-->
+<wxs src="../../utils/tools.wxs" module="tools" /> 
+<view class="goodlist-two">
+  <navigator wx:for="{{goodListTwoLine}}" wx:key="{{item.spuid}}" hover-class="none" url="/pages/goods/goodsDetail/goodsDetail?spuid={{item.spuid}}">
+    <view class="item">
+      <view class="item-pic"><image lazy-load="true" mode="aspectFill" src="{{item.goodslistpicurl}}"></image></view>
+      <view class="item-info">
+        <view class="item-title">{{item.goodsname}}</view>
+        <view class="item-price">
+          <text class="price">￥{{tools.toFix(item.goodsprice)}}</text>
+          <text class="market-price" wx:if="{{item.marketprice > 0}}">￥{{tools.toFix(item.marketprice)}}</text>
+        </view>
+      </view>
+    </view>
+  </navigator>
+</view>

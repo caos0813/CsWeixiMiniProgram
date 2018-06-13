@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+      "searchInput": "/components/searchInput/searchInput",
+      "goodListTwo": "/components/goodList/goodList2line",
+      "goodListThree": "/components/goodList/goodList3line"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

@@ -1,0 +1,135 @@
+/**app.wxss**/
+.line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1rpx;
+  background-color: #e5e5e5;
+  z-index: 999;
+}
+scroll-view {
+  box-sizing: border-box;
+}
+page {
+  color: #333;
+}
+.clearfix::after,.clearfix::after{
+  display: table;
+  content: " ";
+}
+.clearfix::after{
+  clear: both;
+}
+
+
+
+
+.loading-container .no-more {
+  padding-bottom:20rpx;
+  color:#999;
+  font-size:28rpx;
+  text-align:center;
+}
+
+.loading-container .loading-icon{
+    width: 40rpx;
+    height: 40rpx;
+    border: 4rpx solid #999;
+    margin-right: 20rpx;
+    border-bottom-color:transparent;
+    box-sizing: border-box;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+@keyframes spin{
+  0%{
+    transform:rotate(0);
+  }
+  50%{
+      transform:rotate(180deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+.loading-container .is-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #999;
+  padding-bottom:20rpx;
+}
+
+/****
+公共
+**/
+.icon-home-sign{
+  background-image: url(https://devskin.manjd.net/miniprogram/images/home-sign.png);
+  background-repeat: no-repeat;
+  background-size:cover;
+  width: 24rpx;
+  height: 24rpx;
+  display: inline-block;
+}
+.icon-customer-service{
+  background-image: url(https://devskin.manjd.net/miniprogram/images/goods/customer-service.png);
+  background-repeat: no-repeat;
+  background-size:cover;
+  width: 40rpx;
+  height: 40rpx;
+  display: inline-block;
+}
+.icon-home{
+  background-image: url(https://devskin.manjd.net/miniprogram/images/goods/home.png);
+  background-repeat: no-repeat;
+  background-size:cover;
+  width: 40rpx;
+  height: 40rpx;
+  display: inline-block;
+}
+.icon-shopping-cart{
+  background-image: url(https://devskin.manjd.net/miniprogram/images/goods/shopping-cart.png);
+  background-repeat: no-repeat;
+  background-size:cover;
+  width: 40rpx;
+  height: 40rpx;
+  display: inline-block;
+}
+.inline{
+  display: inline;
+}
+.inline-block{
+  display: inline-block;
+}
+.hide{
+  display: none;
+}
+
+.go-top {
+  position: fixed;
+  right: 32rpx;
+  bottom: 100rpx;
+  width: 74rpx;
+  height: 74rpx;
+  background-image: url(https://devskin.manjd.net/miniprogram/images/icon-to-top.png);
+  background-size: 100%;
+}
+
+.arrow-r{
+  display: inline-block;
+  width: 26rpx;
+  height:26rpx;
+}
+.arrow-r::after{
+  content: '';
+  display: block;
+  width: 13rpx;
+  height: 13rpx;
+  border:4rpx solid #999999;
+  border-left:0;
+  border-bottom:0;
+ transform: rotate(45deg);
+ margin-top: 6rpx;
+}

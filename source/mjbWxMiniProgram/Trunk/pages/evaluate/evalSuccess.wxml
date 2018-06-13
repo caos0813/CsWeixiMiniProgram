@@ -1,0 +1,47 @@
+<!--pages/evaluate/evalSuccess.wxml-->
+<view class='top'>
+  <view class='round1'></view>
+  <view class='round2'></view>
+  <view class='round3'></view>
+  <view class='round4'></view>
+  <view class='round5'></view>
+  <text>感谢您的评价</text>
+  <button>查看评价</button>
+</view>
+<view>
+  <view class='con-eval'>
+    <view class='con-eval-text'>继续评价</view>
+  </view>
+  <view wx:if="{{evaluateGoodsList.length>0}}">
+    <!-- <view class="goodslist-item" wx:for="{{pendindCommentList}}" wx:key="{{item.spuid}}">
+      <view class="goodslist-pic">
+        <image src="{{item.goodslistpicurl}}" mode="aspectFill"></image>
+      </view>
+      <view class="goodslist-info">
+        <view class="gl-top">
+          <view class="gl-name-wrap">
+            <text>{{item.title}}</text>
+          </view>
+          <view class="gl-format">
+            <text>{{item.spec}}</text>
+          </view>
+        </view>
+        <view class="gl-bot">
+          <view>
+            <text class="gl-price">￥{{item.salesprice}}</text>
+            <text class="gl-num">x{{item.qty}}</text>
+          </view>
+          <view class="gl-eval">
+            <button data-info="{{item}}" bindtap='onNowEval'>立即评价</button>
+          </view>
+        </view>
+      </view>
+    </view> -->
+    <eval-list wx:for="{{evaluateGoodsList}}" wx:key="{{item.spuid}}"></eval-list>
+  </view>
+  <view wx:else>
+    <empty-eval empty-image="https://devskin.manjd.net/miniprogram/images/logistics-empty.png" text="您暂时没有可评价的商品">
+      <button class='look-around'>随便逛逛</button>
+    </empty-eval>
+  </view>
+</view>

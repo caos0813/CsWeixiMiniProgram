@@ -1,0 +1,7 @@
+/* pages/brandHot/brandHot.wxss */
+.no-more {
+  padding-bottom: 20rpx;
+  color: #999;
+  font-size: 28rpx;
+  text-align: center;
+}

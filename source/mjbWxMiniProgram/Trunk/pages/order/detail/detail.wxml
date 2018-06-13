@@ -1,0 +1,88 @@
+<!--pages/order/detail/detail.wxml-->
+<wxs src="../../../utils/tools.wxs" module="tools" />
+
+<view class="order-detail-wrap" wx:if="{{dataIsLoaded}}">
+  <view class="order-detail-state">
+    <view class="state-wrap">
+      <view class="state-text">{{detail.statustext}}</view>
+      <view class="state-sub">
+        {{stateText[detail.status].txt}}
+        <block wx:if="{{detail.status == 1}}">{{tools.formatTime(paymentendtime)}}</block>
+      </view>
+    </view>
+    <view class="state-icon {{stateText[detail.status].class}}"></view>
+  </view>
+  <view class="order-detail-deliver" wx:if="{{detail.expressnoitems.length > 0}}" bindtap="goLogisticsPage">
+    <view class="text-wrap">
+      <view class="deliver-state">{{expressSteps.content}}</view>
+      <view class="deliver-time" wx:if="{{expressSteps.starttime}}">{{tools.clearTime(expressSteps.starttime)}}</view>
+    </view>
+    <view class="right-icon"></view>
+  </view>
+  <view class="order-detail-addr">
+    <view class="order-user">
+      <text>{{detail.shippingaddress.fullname}}</text>
+      <text>{{detail.shippingaddress.tel}}</text>
+    </view>
+    <view class="addr">
+      <text>{{detail.shippingaddress.province + detail.shippingaddress.city + detail.shippingaddress.county + detail.shippingaddress.street1 + detail.shippingaddress.street2}}</text>
+      <view class="edit" wx:if="{{detail.allowmodifaddress}}"></view>
+    </view>
+  </view>
+  <view class="order-detail-goodslist">
+    <navigator wx:for="{{detail.lines}}" wx:key="{{item.spuid}}" url="/pages/goods/goodsDetail/goodsDetail?spuid={{item.spuid}}" hover-class="none">
+      <view class="goods-item">
+        <image src="{{item.skuimage}}"></image>
+        <view class="goods-info">
+          <view class="title">{{item.spuname}}</view>
+          <view class="sub-title">
+            <view class="spec">{{item.spec}}</view>
+            <view class="num">x{{item.qty}}</view>        
+          </view>
+          <view class="sales">
+            <view class="price">￥{{item.salesprice}}</view>
+            <view class="btn" wx:if="{{item.canapplyorderservice}}" catchtap="applyAftersale">申请售后</view>
+            <view class="btn" wx:if="{{item.skustatus > 1}}">{{item.skustatustext}}</view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+  <view class="order-invoice">
+    <view>发票：
+      <text wx:if="{{detail.invoiceapplystatus == 1}}">不开发票</text>
+      <block>
+        <text wx:if="{{detail.invoiceapply.invoicetitletype == 1}}">普通-单位</text>
+        <text wx:elif="{{detail.invoiceapply.invoicetitletype == 10}}">普通-个人</text>
+      </block>
+    </view>
+    <view class="apply-invoice" wx-if="{{detail.canInvoiceApply == 1}}" catchtap="applyInvoice">申请开票</view>
+  </view>
+  <view class="order-price-wrap">
+    <view class="order-total-price">
+      <text>商品总额</text>
+      <text>￥{{tools.toFix(detail.amounttotal)}}</text>
+    </view>
+    <view class="order-deliever-price">
+      <text>运费</text>
+      <text>+￥0.00</text>
+    </view>
+    <view class="order-price">
+      <text>实付金额</text>
+      <text class="price">￥{{tools.toFix(detail.actualreceived) || 0}}</text>
+    </view>
+  </view>
+  <view class="order-info">
+    <view>订单编号<text>{{detail.orderno}}</text></view>
+    <view>创建时间<text>{{tools.clearTime(detail.ordertime)}}</text></view>
+    <view wx:if="{{detail.paymentconfirmed != '0001-01-01 00:00:00:000'}}">付款时间<text>{{tools.clearTime(detail.paymentconfirmed)}}</text></view>
+  </view>
+  <view class="fixed-footer">
+    <view wx:if="{{detail.cancustomercancelorder}}" bindtap="cancelOrderFn">取消订单</view>
+    <view wx:if="{{!!detail.storeownermobile}}">联系客服</view>
+    <view wx:if="{{detail.status == 1}}">立即付款</view>
+    <view wx:if="{{detail.expressnoitems.length > 0}}" bindtap="goLogisticsPage">查看物流</view>
+    <confirmOrder my-class="detailpage-btn" wx:if="{{detail.canshippingconfirm}}" orderno="{{detail.orderno}}"></confirmOrder> 
+    <view wx:if="{{detail.status == 30 || detail.status == 50}}" bindtap="reBuy">再次购买</view>
+  </view>
+</view>

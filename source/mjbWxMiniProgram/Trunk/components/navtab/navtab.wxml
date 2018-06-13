@@ -1,0 +1,12 @@
+<!--components/navtab/navtab.wxml-->
+<view class="tab-wrap">
+<view class="tab-head">
+<view class="tabs">
+    <view  wx:for="{{tabs}}" wx:key="{{index}}" data-index="{{index}}" catch:tap="bindTap" class="{{index==currentIndex?'tab-item active':'tab-item'}}">
+      <view>
+        {{item}}
+      </view>
+    </view>
+</view>
+</view>
+</view>

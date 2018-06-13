@@ -1,0 +1,66 @@
+<template name="goodsEvaluateList">
+  <view class="evaluate-header list">
+      <view>评价({{statistics.commentcount}})</view>
+      <view>
+        <view wx:if="{{statistics.commentcount>0}}">好评度</view>
+        <view wx:if="{{statistics.commentcount>0}}">{{statistics.satisfactionval}}%</view>
+      </view>
+  </view>
+<view class="comment-wrapper list">
+  <view class="comment-item" wx:for="{{list}}" wx:key="{{index}}">
+    <view class="user-info">
+      <view class="head">
+        <image src="{{item.usericon}}"></image>
+      </view>
+      <view class="nickname">{{item.nickname}}</view>
+      <view class="time">{{item.createtime}}</view>
+    </view>
+    <view class="evaluate-star">
+      <star value="{{item.stars}}"></star>
+    </view>
+    <view class="comment{{item.expandStatus==2?' expand':''}}">
+    {{item.filtertext}}
+    </view>
+   <view class="text-ellipsis{{item.expandStatus<2?' expand':' collapse'}}" wx:if="{{item.expandStatus>0}}">
+   <view></view><view data-index="{{index}}" bind:tap="onExpand">{{item.expandStatus==1?'展开':'收起'}}</view>
+   </view>
+
+    <view class="piclist">
+    <image bind:tap="onPreviewImage" wx:for-index="imageIndex" data-url="{{url}}"  data-index="{{index}}" wx:for="{{item.piclist}}" wx:key="imageIndex" wx:for-item="url" src="{{url}}"></image>
+    </view>
+    <view class="cate">{{item.spec}}</view>
+  </view>
+</view>
+</template>
+<template name="goodsDetail">
+  <view class="evaluate-header" bind:tap="onNavList">
+      <view>评价({{statistics.commentcount}})</view>
+      <view>
+        <view wx:if="{{statistics.commentcount>0}}">好评度</view>
+        <view wx:if="{{statistics.commentcount>0}}">{{statistics.satisfactionval}}%</view>
+        <view class="arrow-r"></view>
+      </view>
+  </view>
+<view class="comment-wrapper">
+  <view class="comment-item" wx:for="{{list}}" wx:key="{{index}}">
+    <view class="user-info">
+      <view class="head">
+        <image src="{{item.usericon}}"></image>
+      </view>
+      <view class="nickname">{{item.nickname}}</view>
+    </view>
+    <view class="evaluate-star">
+      <star value="{{item.stars}}"></star>
+    </view>
+    <view class="comment special">
+    {{item.filtertext}}</view>
+    <view class="piclist special">
+    <image wx:for="{{item.piclist}}" wx:key="index" wx:for-item="url" src="{{url}}"></image>
+    </view>
+     <view class="cate">{{item.spec}}</view>
+  </view>
+</view>
+</template>
+ <view class="evaluate-body">
+          <template is="{{tempType==1?'goodsDetail':'goodsEvaluateList'}}" data="{{list,statistics}}"/>
+</view>

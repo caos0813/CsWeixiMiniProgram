@@ -1,0 +1,49 @@
+/* components/filterBar/filterBar.wxss */
+.filter-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 88rpx;
+  z-index: 1000;
+}
+.filter-wrap-static{
+  position:static;
+
+}
+
+.filter-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 32rpx;
+  font-size: 30rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: #FAFAFA;
+}
+.filter-tab .active {
+  color: #FF681D;
+}
+.filter-tab view {
+  line-height: 1;
+}
+.price {
+  display: flex;
+  align-items: center;
+}
+.price view {
+  width: 14rpx;
+  height: 24rpx;
+  margin-left: 7rpx;
+  background-image: url(https://devskin.manjd.net/miniprogram/images/icon-sort-default.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.price.desc view {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/icon-sort-desc.png);
+}
+.price.asc view {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/icon-sort-asc.png); 
+}

@@ -1,0 +1,32 @@
+<!--pages/cart/cartList.wxml-->
+<view class="cart-list-wrap">
+  <block wx:if="{{cartList.length != 0}}">
+    <view class="cart-list" wx:for="{{cartList}}" wx:key="index" data-index="{{index}}" bindtap="hideDelBtn">
+      <view class="cart-del" data-index="{{index}}" catchtap="delHandler">删除</view>
+      <view class="cart-move" style="left:{{item.left + 'rpx'}}" data-index="{{index}}" bindtouchstart="startHandler" bindtouchmove="moveHandler" bindtouchend="endHandler">
+        <view data-index="{{index}}" class="cart-list-radio {{item.isselect ? 'active' : ''}}" catchtap="selectHandler"></view>
+        <view class="cart-list-img">
+          <image class="img" src="{{item.goodspic}}" />
+          <view wx:if="{{item.tock == 0}}" class="cart-img-tit">已售罄</view>
+        </view>
+        <view class="cart-list-content">
+          <view class="cart-list-title" catchtap="">{{item.goodsname}}</view>
+          <view class="cart-list-note">{{item.skuname}}</view>
+          <view class="cart-list-price">¥ {{item.salesprice}}</view>
+        </view>
+        <number-input data-index="{{index}}" style="position: absolute; bottom: 0; right: -28rpx;" size="small" min="1" max="999" value="{{item.shopnum}}" bindchange="getNum"></number-input>
+      </view>
+    </view>
+    <view class="cart-bottom">
+      <view class="cart-list-radio {{allSelect ? 'active' : ''}}" catchtap="selectAllHandler"></view>
+      <view class="cart-select-piece">已选({{selectPiece}})</view>
+      <view class="cart-all-price">合计：<text class="txt-color">¥ {{allPrice}}</text></view>
+      <view class="cart-pay" bindtap="cartPay">结算</view>
+    </view>
+  </block>
+  <block wx:else>
+    <empty-good emptyImage="https://devskin.manjd.net/miniprogram/images/cart-none.png" text="您的购物车还是空的哦～" >
+      <view class="go-category" bindtap="goCategory">逛一逛</view>
+    </empty-good>
+  </block>
+</view>

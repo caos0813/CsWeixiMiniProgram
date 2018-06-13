@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText":"新品推荐列表",
+  "usingComponents": {
+    "filterbar": "/components/filterBar/filterBar",
+    "goodlist": "/components/goodList/goodList"
+  },
+  "disableScroll": false,
+  "enablePullDownRefresh": false,
+  "backgroundTextStyle":"dark"
+
+}

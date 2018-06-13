@@ -1,0 +1,70 @@
+<!-- pages/address/manager.wxml -->
+<view class="address-new-wrap">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="section">
+      <view class="section-name">收货人</view>
+      <input name="contactname" placeholder="请输入收货人" value="{{editContent.contact_name}}" />
+    </view>
+    <view class="section">
+      <view class="section-name">手机号码</view>
+      <input name="mobile" type="number" placeholder="请输入手机号码" value="{{editContent.mobile}}" />
+    </view>
+    <view class="section">
+      <view class="section-name">所在地区</view>
+      <view class="section-region" bindtap="changeRegion">{{region}}</view>
+    </view>
+    <view class="section">
+      <view class="section-name">街道</view>
+      <view class="section-region" bindtap="changeStreetRegion">{{street}}</view>
+    </view>
+    <view class="section section-text {{showCityWrap || showStreetWrap ? 'hide-form' : ''}}">
+      <textarea name="addressdetail" placeholder="详细地址（无需重复填写地区、街道）" value="{{editContent.address_detail}}"></textarea>
+    </view>
+    <view class="section section-label-wrap">
+      <view class="section-name">标签</view>
+      <view class="section-label">
+        <view class="{{item.handler ? 'active section-label-item' : 'section-label-item'}}" data-value="{{item.addr_label_id}}" wx:for="{{labelData}}" wx:key="index" bindtap="labelBtn">{{item.label_name}}</view>
+      </view>
+    </view>
+    <view class="section-default">
+      <view class="section-name">设为默认</view>
+      <block wx:if="{{editContent.default_flag == 1}}">
+        <switch name="defaultflag" checked/>
+      </block>
+      <block wx:else>
+        <switch name="defaultflag"/>
+      </block>
+    </view>
+    <view class="btn-area">
+      <button formType="submit">保存</button>
+    </view>
+  </form>
+  <view class="city-wrap {{showCityWrap ? '' : 'hide-city'}}">
+    <view class="city-btn">
+      <view class="city-cancel" bindtap="cityCancel">取消</view>
+      <view class="city-check" bindtap="cityCheck">确定</view>
+    </view>
+    <picker-view class="city-item" indicator-style="height: 50px;" bindchange="bindChange" value="{{coordinate}}">
+      <picker-view-column>
+        <view class="city-list" wx:for="{{province}}" wx:key="index">{{item}}</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view class="city-list" wx:for="{{city}}" wx:key="index">{{item}}</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view class="city-list" wx:for="{{area}}" wx:key="index">{{item}}</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+  <view class="city-wrap {{showStreetWrap ? '' : 'hide-city'}}">
+    <view class="city-btn">
+      <view class="city-cancel" bindtap="streetCancel">取消</view>
+      <view class="city-check" bindtap="streetCheck">确定</view>
+    </view>
+    <picker-view class="city-item" indicator-style="height: 50px;" bindchange="bindStreetChange" value="{{streetCoordinate}}">
+      <picker-view-column>
+        <view class="city-list" wx:for="{{streetArr}}" wx:key="index">{{item}}</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+</view>

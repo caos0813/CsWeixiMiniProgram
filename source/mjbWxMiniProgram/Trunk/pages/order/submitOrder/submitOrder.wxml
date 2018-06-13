@@ -1,0 +1,90 @@
+<wxs module="m1">
+function formatAddrTxt(addrInfo){
+  return addrInfo.areaAName + addrInfo.areaBName + addrInfo.areaCName + addrInfo.areaDName + addrInfo.address_detail;
+}
+function formatInvoice(invoiceType)
+{
+  return ['不开票','普通-个人','普通-单位'][invoiceType]
+}
+module.exports={
+formatAddrTxt:formatAddrTxt,
+formatInvoice:formatInvoice
+}
+</wxs>
+
+<scroll-view scroll-y class="container">
+
+  <form bind:submit="onSubmitOrder" class="form" report-submit="true">
+    <view class="form-item" wx:if="{{addressInfo.address_id<=0}}">
+      <view class="newadd-address" bind:tap="onSelectAddress">
+        <view>填写收货地址</view>
+        <view class="arrow-r"></view>
+      </view>
+    </view>
+    <view class="form-item" wx:if="{{addressInfo.address_id>0}}">
+      <view class="current-address" bind:tap="editAddress" data-id="{{addressInfo.address_id}}">
+        <view class="address-contact">
+          <view class="contact-name">{{addressInfo.contact_name }}</view>
+          <view class="contact-phone">{{addressInfo.mobile  }}</view>
+          <view class="address-default" wx:if="{{addressInfo.default_flag}}">默认</view>
+        </view>
+        <view class="address-info">
+          <view>
+            {{m1.formatAddrTxt(addressInfo)}}
+          </view>
+          <view class="arrow-r"></view>
+        </view>
+      </view>
+    </view>
+    <view class="form-item goods">
+      <view class="goods-item" wx:for="{{orderInfo.list}}" wx:key="{{item.skuid}}">
+        <image class="goods-picture" src="{{item.goodspic}}" lazy-load>
+        </image>
+        <view class="goods-content">
+          <view class='goods-title'>{{item.goodsname}}</view>
+          <view>
+            <view class="goods-spec">{{item.skuname}}</view>
+            <view class="goods-num">x{{item.shopnum}}</view>
+          </view>
+          <view class="goods-price">¥{{item.totalamount}}</view>
+        </view>
+      </view>
+
+      <view class="goods-total">
+        <view>共{{orderInfo.goodsnum }}件商品</view>
+        <view>合计：{{orderInfo.goodstotalprice}}</view>
+      </view>
+    </view>
+    <view class="form-item receipt" bind:tap="addInvoice">
+      <view> 发票</view>
+      <view> {{m1.formatInvoice(invoiceType)}}</view>
+      <view class="arrow-r"></view>
+    </view>
+    <view class="form-item amount-total">
+      <view>
+      <view>商品金额</view> <view>¥<view>{{orderInfo.orderamount}}</view></view>
+      </view>
+      <view>
+            <view>运费</view><view>+ ¥<view>{{orderInfo.shippingfee }}</view></view>
+      </view>
+       <view>
+            <view>实付金额</view><view>¥<view>{{orderInfo.orderdueamount}}</view></view>
+      </view>
+    </view>
+    <view class="buttons">
+    <view><view>应付:¥ {{orderInfo.orderdueamount}}</view></view>
+     <button class="btn-buy"  form-type="submit">微信支付</button>
+    </view>
+  </form>
+</scroll-view>
+
+<dialog visible="{{dialog.visibleDialog}}" buttons="{{dialog.buttons}}" bind:change="onDialogChange">
+<view class="goods-list"> 
+    <view class="goods-item" wx:for="{{dialog.list}}" wx:key="{{index}}">
+      <view>
+      <image src="{{item.goodspic}}"></image>
+      </view>
+         <view>{{item.goodsname}}</view>
+    </view>
+</view>
+</dialog>

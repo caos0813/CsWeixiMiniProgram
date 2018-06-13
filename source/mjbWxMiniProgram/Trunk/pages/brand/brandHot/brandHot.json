@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "brandlist": "/components/brandList/brandList"
+  },
+  "navigationBarTitleText": "品牌热销榜"
+}

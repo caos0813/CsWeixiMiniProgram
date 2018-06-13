@@ -1,0 +1,73 @@
+/* pages/search/search.wxss */
+
+/* @import '/pages/search/hotSearch.wxss';
+@import '/pages/search/searchResult.wxss' */
+@import "/components/searchInput/searchInput.wxss";
+
+/* 搜索 Begin */
+
+.hot-search>.search-header {
+  display: flex;
+  padding: 10rpx 30rpx 20rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: #fafafa;
+}
+
+.hot-search>.search-header>.search-input {
+  width: 585rpx;
+}
+
+.search-header>.cancel {
+  font-size: 28rpx;
+  padding: 18rpx 0 0rpx 30rpx;
+}
+
+.search-item {
+  font-size: 28rpx;
+  padding: 32rpx;
+}
+
+.search-item>text {
+  border-radius: 6rpx;
+  border: 1px solid #ccc;
+  padding: 5rpx 13rpx;
+  margin-top: 30rpx;
+  margin-left: 30rpx;
+  display: inline-block;
+}
+
+.hot-search-hd {
+  height: 40rpx;
+  width: 100%;
+}
+
+.search-item-hd>.title {
+  width: 112rpx;
+  font-weight: bold;
+}
+
+.search-item-hd>view {
+  width: 26rpx;
+  height: 30rpx;
+  background-image: url(https://devskin.manjd.net/miniprogram/images/search-delete.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  float: right;
+}
+
+/* 搜索 End */
+
+/* 搜索结果 Begin */
+
+.search-result>.search-result-hd {
+  position: fixed;
+  width: 100%;
+  background-color: #fafafa;
+  z-index: 1000;
+}
+.search-result-hd>.search-header{
+  padding: 10rpx 32rpx;
+}
+
+/* 搜索结果 End */

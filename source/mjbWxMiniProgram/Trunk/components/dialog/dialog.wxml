@@ -1,0 +1,16 @@
+<view class="dialog-wrap" wx:if="{{visibleDialog}}">
+<view class="dialog-modal">
+  <view class="head">
+  <view class="title"> {{title}}</view>
+  <view class="close" bind:tap="onConfirm" data-value="0"></view>
+  </view>
+  <view class="content">
+  <slot></slot>
+  </view>
+  <view class="footer">
+  <block wx:for="{{buttons}}" wx:key="{{index}}" >
+  <view class="button" style="color:{{item.color}}" data-value="{{item.value}}" bind:tap="onConfirm">{{item.text}}</view>
+  </block>
+  </view>
+</view>
+</view>

@@ -1,0 +1,6 @@
+<view class="empty-data">
+<view>
+<image src='{{emptyImage}}' model='aspectFit'></image>
+<view class="empty-text">{{text}}<slot></slot></view>
+</view>
+</view>

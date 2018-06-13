@@ -1,0 +1,4 @@
+<!--components/confirmOrder/confirmOrder.wxml-->
+<form bindsubmit="confrimOrder" report-submit="true" data-orderno="{{orderno}}" class="my-class">
+  <button  formType="submit" class="confirm-order-btn">确认收货</button>
+</form>

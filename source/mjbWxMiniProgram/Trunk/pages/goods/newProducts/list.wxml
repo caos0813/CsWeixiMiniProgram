@@ -1,0 +1,13 @@
+<!-- pages/newProducts/list.wsml -->
+<filterbar wx:if="{{isShow}}" bindchange="onChange"></filterbar>
+
+<scroll-view wx:if="{{isShow}}" style="padding-top:100rpx;">
+  <goodlist goodsArr="{{goodsArr}}"></goodlist>
+</scroll-view>
+
+<empty-goods wx:if="{{!isShow}}"></empty-goods>
+<view class="loading-container" wx:if="loading>0">
+  <view class="is-loading" wx:if="{{loading==1}}">
+    <view class="loading-icon"></view>正在加载中</view>
+  <view class="no-more" wx:if="{{loading==2}}">没有更多了</view>
+</view>

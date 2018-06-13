@@ -1,0 +1,188 @@
+/* pages/personal/personal.wxss */
+.personal-wrap {
+  height: 100vh;
+  overflow-y: auto;
+}
+.grey {
+  background-color: #f5f5f5;
+  height: 20rpx;
+}
+.personal-head {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 260rpx;
+  padding-left: 60rpx;
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_background.png);
+  background-size: 100%;
+}
+/* .personal-head button {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+}
+button::after{
+  border: none;
+} */
+button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 999;
+}
+.avatar {
+  width: 102rpx;
+  height: 102rpx;
+  border-radius: 50%;
+}
+.personal-head text {
+  margin-left: 18rpx;
+  color: #fff;
+  font-size: 34rpx;
+}
+
+.bind-wrap {
+  font-size: 30rpx;
+  color: #333;
+}
+.bind-btn {
+  width:140rpx;
+  height:58rpx;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 58rpx;
+  color: #ff681d;
+  border-radius:4rpx;
+  border:1rpx solid #ff681d;
+}
+.my-order-hd {
+  font-size: 30rpx;
+  color: #333;
+}
+.my-order-hd text {
+  font-size: 28rpx;
+  color: #666;
+}
+.my-order-category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 180rpx;
+  padding: 0 32rpx;
+  margin-bottom: 20rpx;
+}
+.my-order-category view {
+  position: relative;
+  width: 78rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.my-order-category view .new {
+  position: absolute;
+  height: 30rpx;
+  top: -15rpx;
+  right: 6rpx;
+  text-align: center;
+  line-height: 30rpx;
+  background-color: #FF681D;
+  color: #fff;
+  font-size: 20rpx;
+  border-radius: 50%;
+  width: 30rpx;
+}
+.my-order-category view text {
+  font-size: 26rpx;
+  color: #333;
+  margin-top: 13rpx;
+}
+.nav {
+  font-size: 30rpx;
+  color: #333;
+}
+
+
+.flexline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 88rpx;
+  padding: 0 32rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+}
+.flexline .flex1 {
+  flex: 1;
+}
+.icon {
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.bind-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_mobile_phone.png);
+  width: 28rpx;
+  height: 39rpx;
+  margin-right: 27rpx;
+}
+.right-arrow-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_right_arrow.png);
+  width: 14rpx;
+  height: 24rpx;
+  margin-left: 17rpx;
+}
+.wait-pay-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_pending_payment.png);
+  max-width: 38rpx;
+  height: 38rpx;
+}
+.wait-deliver-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_pending_delivery.png);
+  max-width: 40rpx;
+  height: 39rpx;
+}
+.wait-receive-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_goods_to_be_received.png);
+  max-width: 41rpx;
+  height: 40rpx;
+}
+.wait-evaluate-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_wait_for_pin.png);
+  max-width: 40rpx;
+  height: 40rpx;
+}
+.after-sale-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_after_sale.png);
+  max-width: 39rpx;
+  height: 40rpx;
+}
+
+.address-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_address.png);
+  width: 40rpx;
+  height: 39rpx;
+  margin-right: 21rpx;
+}
+.contact-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_customer_service.png);
+  width: 37rpx;
+  height: 38rpx;
+  margin-right: 25rpx;
+}
+.help-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_help_center.png);
+  width: 36rpx;
+  height: 39rpx;
+  margin-right: 24rpx;
+}
+.feedback-icon {
+  background-image: url(https://devskin.manjd.net/miniprogram/images/personal/personal_center_feedback.png);
+  width: 31rpx;
+  height: 35rpx;
+  margin-right: 26rpx;
+}

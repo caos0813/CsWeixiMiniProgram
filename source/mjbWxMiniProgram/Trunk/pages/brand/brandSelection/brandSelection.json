@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "brandlist": "/components/brandList/brandList"
+  },
+  "navigationBarTitleText": "精选大牌",
+  "onReachBottomDistance": 50
+}

@@ -1,0 +1,14 @@
+/* pages/goodsTop/goodsTop.wxss */
+.no-more {
+  padding-bottom: 20rpx;
+  color: #999;
+  font-size: 28rpx;
+  text-align: center;
+}
+.swiper-wrap {
+  height: 320rpx;
+}
+.swiper-wrap image {
+  width: 100%;
+  height: 100%;
+}

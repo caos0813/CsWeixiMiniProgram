@@ -1,0 +1,18 @@
+<!--pages/logistics/logistics.wxml-->
+<view class='logistics-box'>
+  <view class='logistics-info'>
+    <image src='https://devskin.manjd.net/miniprogram/images/transportation.png' mode='aspectFill'></image>
+    <view>
+      <!-- <view class='status'>运输中 预计2天后到达</view> -->
+      <view class='info'>快递公司：{{logisticsList.expressname}}</view>
+      <view class='info'>快递单号：{{logisticsList.expressno}}</view>
+       <view class='info'>联系电话：{{logisticsList.servicetel}}</view> 
+    </view>
+  </view>
+  <view class='logistics-detail'>
+     <view class='detail-item {{logisticsList.expressstatus==1&&index==0?" active":logisticsList.expressstatus==3&&index==0?" finish":""}}' wx:for="{{logisticsList.steps}}" wx:for-item="steps_item" wx:key="index">
+      <view>{{steps_item.Context}}</view>
+      <view>{{steps_item.Time}}</view>
+    </view> 
+  </view>
+</view>

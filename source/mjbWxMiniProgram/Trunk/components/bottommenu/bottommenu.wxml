@@ -1,0 +1,15 @@
+<!--components/bottommenu/bottommenu.wxml-->
+<view class="menu-back{{visible?'':' hide'}}" bind:tap="onClose">
+</view>
+
+ <view class="menu{{visibleClass}}{{buttons.length>0?' paddingBottom':''}}"   bind:transitionend="bindtransitionend">
+   <view class="head" ><image style='width:40rpx;height:40rpx' src="{{closeIcon}}" bind:tap="onClose"></image></view>
+  <view class="content">
+    <slot></slot>
+  </view>
+   <view class="buttons" wx:if="{{buttons.length>0}}">
+      <view wx:for="{{buttons}}" class="{{item.disabled?'disabled':''}}" data-value="{{item.value}}"  data-index="{{index}}" wx:key="{{index}}" bind:tap="onTap">
+        <view> {{item.text}}</view>
+      </view>
+    </view>
+ </view>

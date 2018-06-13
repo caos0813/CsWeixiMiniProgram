@@ -1,0 +1,4 @@
+<!--pages/brandHot/brandHot.wxml-->
+<view class="line"></view>
+<brandlist brandsArr="{{brandsArr}}"></brandlist>
+<view class="no-more" wx:if="{{isLoading}}">没有更多啦~</view>

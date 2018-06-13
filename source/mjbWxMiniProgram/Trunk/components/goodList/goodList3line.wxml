@@ -1,0 +1,14 @@
+<!--components/goodList/goodList3line.wxml-->
+<wxs src="../../utils/tools.wxs" module="tools" /> 
+<view class="goodlist-three">
+  <navigator wx:for="{{goodListThreeLine}}" wx:key="{{item.spuid}}" hover-class="none" url="/pages/goods/goodsDetail/goodsDetail?spuid={{item.spuid}}">
+    <view class="item">
+      <view class="item-pic"><image mode="aspectFill" lazy-load="true" src="{{item.goodslistpicurl}}"></image></view>
+      <view class="item-info">
+        <view class="item-title">{{item.goodsname}}</view>
+        <view class="item-price">¥{{tools.toFix(item.goodsprice)}}</view>
+      </view>
+    </view>
+  </navigator>
+</view>
+

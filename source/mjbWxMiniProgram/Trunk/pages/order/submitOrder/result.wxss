@@ -1,0 +1,53 @@
+page{
+  background-color: #F5F5F5;
+}
+.pay-wrap{
+    padding: 54rpx 58rpx 40rpx;
+    background-color: #ffffff;
+}
+.pay-wrap .content{
+   text-align: center;
+}
+.pay-wrap .pay-result{
+  font-size: 32rpx;
+  color: #333333;
+  margin-top: 18rpx;
+}
+.pay-wrap .pay-defail{
+  margin-top: 40rpx;
+  font-size: 56rpx;
+  color: #333333;
+}
+.pay-wrap .content image.icon{
+  width:124rpx;
+  height: 124rpx;
+}
+.buttons{
+  display: flex;
+  margin-top: 80rpx;
+  justify-content:space-between;
+}
+.buttons button{
+  margin: 0;
+  padding: 0;
+  width: 280rpx;
+  color: #FF681D;
+  font-size: 30rpx;
+  height: 86rpx;
+  text-align: center;
+  border-radius:8px;
+  border:1px solid #FF681D;
+    background-color: #ffffff;
+}
+.buttons button:last-child{
+    background-color: #FF681D;
+    color: #ffffff;
+}
+.buttons button::after{
+  border: 0;
+}
+.remind{
+  padding:30rpx;
+  font-size: 24rpx;
+  color: #999999;
+}

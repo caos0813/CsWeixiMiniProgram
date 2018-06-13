@@ -1,0 +1,71 @@
+<!-- pages/search/search.wxml -->
+<view wx:if="{{isShow}}">
+  <!-- 搜索 Begin -->
+  <view wx:if="{{isSearch}}" class="hot-search">
+    <view class="search-header">
+      <view class="search-input">
+        <view class="icon">
+          <icon type="search" size="13" />
+        </view>
+        <view class="input-wrapper">
+          <input class="input" value="{{searchValue}}" type="text" bindinput="onInput" confirm-type="search" bindconfirm="onConfirm" focus placeholder="搜索喜欢的商品吧" />
+        </view>
+        <view class="icon" wx:if="{{isSearchValue}}">
+          <icon type="clear" bindtap="onClear" size="13" />
+        </view>
+      </view>
+      <text class="cancel" bindtap="onCancel">{{cancel}}</text>
+    </view>
+    <view class="search-item" wx:if="{{historyList.length>0}}">
+      <view class="search-item-hd">
+        <text class="title">历史记录</text>
+        <view bindtap="onClearHistory"></view>
+      </view>
+      <block wx:for="{{historyList}}" wx:key="{{index}}">
+        <text data-item="{{item}}" bindtap="onSearch">{{item}}</text>
+      </block>
+    </view>
+    <view class="search-item">
+      <view class="search-item-hd">
+        <text class="title">热门搜索</text>
+      </view>
+      <block wx:for="{{hotSearchList}}" wx:key="{{index}}">
+        <text data-item="{{item}}" bindtap="onSearch">{{item}}</text>
+      </block>
+    </view>
+  </view>
+  <!-- 搜索 End -->
+  <!-- 搜索结果 Begin -->
+  <view wx:else class="search-result">
+    <view class="search-result-hd">
+      <view class="search-header">
+        <view class="search-input">
+          <view class="icon">
+            <icon type="search" size="13" />
+          </view>
+          <view class="input-wrapper">
+            <input class="input" value="{{searchResultValue}}" type="text" bindinput="onInput" bindfocus="onFocus" placeholder="搜索喜欢的商品吧" />
+          </view>
+          <view class="icon" wx:if="{{isSearchValue}}">
+            <icon type="clear" bindtap="onClear" size="13" />
+          </view>
+        </view>
+      </view>
+      <view>
+        <filter-bar bindchange="onChange" is-static></filter-bar>
+      </view>
+    </view>
+    <scroll-view style="padding-top:200rpx;">
+      <good-list goodsArr="{{goodsArr}}"></good-list>
+    </scroll-view>
+  </view>
+  <!-- 搜索结果 End -->
+</view>
+<empty-goods wx:if="{{!isShow}}"></empty-goods>
+<view class="loading-container" wx:if="loading>0">
+  <view class="is-loading" wx:if="{{loading==1}}">
+    <view class="loading-icon"></view>
+    正在加载中
+  </view>
+  <view class="no-more" wx:if="{{loading==2}}">没有更多了</view>
+</view>

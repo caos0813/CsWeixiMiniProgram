@@ -1,0 +1,64 @@
+<!--pages/order/list/list.wxml-->
+
+<wxs src="../../../utils/tools.wxs" module="tools" />
+<view class="nav">
+  <view wx:for="{{menuList}}" wx:key="{{item.status}}" class="{{activeIndex == item.status ? 'on': ''}}" bindtap="changeActive" data-status="{{item.status}}">{{item.text}}</view>
+</view>
+<view class="list-wrap" data-current="{{activeIndex}}">
+  <view class="no-order" wx:if="{{noOrder}}">
+    <image src="https://devskin.manjd.net/miniprogram/images/order/my_order_default_page.png"></image>
+    <text>没有相关订单哦~</text>
+  </view> 
+  <view class="list" wx:else>
+    <view class="item" wx:for="{{list}}" wx:key="{{item.id}}">
+      <view class="item-hd">
+        <view class="time">{{item.ordertime}}</view>
+        <view class="state">{{item.statustext}}</view>
+      </view>
+      <view class="item-body">
+        <navigator url="/pages/order/detail/detail?orderno={{item.orderno}}" hover-class="no">
+          <view class="item-detail" wx:for="{{item.lines}}" wx:for-item="line" wx:key="{{line.id}}">
+            <image lazy-load="true" src="{{line.skuimage}}"></image>
+            <view class="item-info-wrap">
+              <view class="item-info">
+                <view class="title fl">{{line.spuname}}</view>
+                <view class="fr">
+                  <view class="price">￥{{tools.toFix(line.salesprice)}}</view>
+                  <view class="num">x{{line.qty}}</view>
+                </view>
+              </view>
+              <view class="spec">{{line.spec}}</view>
+            </view>
+          </view>
+        </navigator>
+        <view class="item-spec">
+          <view>共{{tools.getGoodsQty(item.lines)}}件商品 
+            <block wx:if="{{item.status == 1}}">
+              <text>应付款：</text>
+              <text class="price">￥{{tools.toFix(item.dueamount) || 0}}</text>
+            </block>
+            <block wx:else>
+              <text>实付款：</text>
+              <text class="price">￥{{tools.toFix(item.actualreceived) || 0}}</text>
+            </block>
+          </view>
+        </view>
+        <view class="item-ctrl" wx:if="{{item.status == 50 || item.status == 30}}">
+          <view class="btn" data-idx="{{index}}" bindtap="reBuy">再次购买</view>
+        </view> 
+        <view class="item-ctrl" wx:elif="{{item.status == 1}}">
+          <view class="wait-time">剩余付款时间 <text>{{tools.formatTime(countDownList[index])}}</text></view> 
+          <view class="btn go-pay-btn">立即付款</view>
+        </view>
+        <view class="item-ctrl" wx:elif="{{item.status == 20}}">
+          <view class="btn" bindtap="goLogisticsPage">查看物流</view>
+          <confirmOrder orderno="{{item.orderno}}"></confirmOrder>
+        </view> 
+      </view>
+    </view>
+    <view class="loading-container">
+      <view class="is-loading" wx:if="{{isLoading}}"><view class="loading-icon"></view>正在加载中</view>
+      <view class="no-more" wx:if="{{loaded}}">没有更多了~</view>
+    </view>
+  </view>
+</view>

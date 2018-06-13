@@ -1,0 +1,72 @@
+<!--pages/personal/personal.wxml-->
+<view class="personal-wrap">
+  <button wx:if="{{!isLogin}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo"></button>
+  <view class="personal-head block">
+    <image class="avatar" src="{{ userInfo.avatarUrl || 'https://devskin.manjd.net/miniprogram/images/personal/personal_center_head_portrait.png'}}"></image>
+    <text>{{ userInfo.nickName || '登录/注册'}}</text>
+  </view>
+  <view class="block">
+    <view class="bind-wrap flexline" wx:if="{{isLogin && !isBindMjd}}">
+      <view class="icon bind-icon"></view>
+      <text class="flex1">找不到订单？绑定手机号试试</text>
+      <view class="bind-btn" data-target="bind" bindtap='goPage'>立即绑定</view>
+    </view>
+    <view class="my-order">
+      <view class="my-order-hd flexline" data-target="order" bindtap='goPage'>
+        <view class="flex1">我的订单</view>
+        <text>全部</text>
+        <view class="icon right-arrow-icon"></view>
+      </view>
+      <view class="my-order-category">
+        <view data-target="waitPay" bindtap='goPage'>
+          <view class="icon wait-pay-icon"></view>
+          <text>待付款</text>
+          <view class="new" wx:if="{{total.pendingpaymenttotal > 0}}">{{total.pendingpaymenttotal}}</view>
+        </view>
+        <view data-target="waitDeliver" bindtap='goPage'>
+          <view class="icon wait-deliver-icon"></view>
+          <text>待发货</text>
+          <view class="new" wx:if="{{total.pendingshipmenttotal > 0}}">{{total.pendingshipmenttotal}}</view>
+        </view>
+        <view data-target="waitReceive" bindtap='goPage'>
+          <view class="icon wait-receive-icon"></view>
+          <text>待收货</text>
+          <view class="new" wx:if="{{total.pendingreceivetotal > 0}}">{{total.pendingreceivetotal}}</view>
+        </view>
+        <view data-target="waitEvaluate" bindtap='goPage'>
+          <view class="icon wait-evaluate-icon"></view>
+          <text>待评价</text>
+          <view class="new" wx:if="{{total.pendingcommenttotal > 0}}">{{total.pendingcommenttotal}}</view>
+        </view>
+        <view data-target="afterSale" bindtap='goPage'>
+          <view class="icon after-sale-icon"></view>
+          <text>售后</text>
+          <view class="new" wx:if="{{total.iniheaftersaletotal > 0}}">{{total.iniheaftersaletotal}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="grey"></view>
+  <view class="block nav">
+    <view class="flexline address" data-target="address" bindtap='goPage'>
+      <view class="icon address-icon"></view>
+      <text class="flex1">收货地址</text>
+      <view class="icon right-arrow-icon"></view>
+    </view>
+    <view class="flexline contact" data-target="contact" bindtap='goPage'>
+      <view class="icon contact-icon"></view>
+      <text class="flex1">联系客服</text>
+      <view class="icon right-arrow-icon"></view>
+    </view>
+    <view class="flexline help" data-target="help" bindtap='goPage'>
+      <view class="icon help-icon"></view>
+      <text class="flex1">帮助中心</text>
+      <view class="icon right-arrow-icon"></view>
+    </view>
+    <view class="flexline feedback" data-target="feedback" bindtap='goPage'>
+      <view class="icon feedback-icon"></view>
+      <text class="flex1">意见反馈</text>
+      <view class="icon right-arrow-icon"></view>
+    </view>
+  </view>
+</view>

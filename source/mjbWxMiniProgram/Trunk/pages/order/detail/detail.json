@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "confirmOrder": "/components/confirmOrder/confirmOrder"
+  },
+  "navigationBarTitleText": "订单详情"
+}

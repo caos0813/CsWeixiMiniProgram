@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "evaluate-list": "/components/evaluateList/evaluateList",
+     "navtab": "/components/navtab/navtab",
+     "bottommenu": "/components/bottommenu/bottommenu",
+     "number-input": "/components/numberInput/numberInput"
+  },
+  "disableScroll": false,
+  "onReachBottomDistance": 50,
+  "backgroundTextStyle": "dark"
+}

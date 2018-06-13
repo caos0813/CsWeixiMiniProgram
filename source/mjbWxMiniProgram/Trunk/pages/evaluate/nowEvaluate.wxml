@@ -1,0 +1,64 @@
+<!-- pages/evaluate/nowEvaluate.wxml -->
+<view class="now-eval-container">
+  <view class="goodslist-item">
+    <view class="goodslist-pic">
+      <image src="{{goodsInfo.goodslistpicurl}}"></image>
+    </view>
+    <view class="goodslist-info">
+      <view class="gl-top">
+        <view class="gl-name-wrap">
+          <text>{{goodsInfo.title}}</text>
+        </view>
+        <view class="gl-format">
+          <text>{{goodsInfo.spec}}</text>
+        </view>
+      </view>
+      <view class="gl-bot">
+        <view>
+          <text class="gl-price">￥{{goodsInfo.salesprice}}</text>
+          <text class="gl-num">x{{goodsInfo.qty}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view style="height:20rpx;background-color:#e5e5e5;"></view>
+  <view class="eval-info">
+    <view class="star-info">
+      <text>评价</text>
+      <view class='start-item' bindtouchstart="onTouchstart" bindtouchmove="onTouchmove">
+        <block wx:for="{{5}}" wx:for-item="startItem" wx:key="index">
+          <view class="start {{ index < starsNum ? 'active' : ''}}" data-index="{{index}}">
+            ★
+          </view>
+        </block>
+      </view>
+      <text class="start-grade" wx:for="{{gradeList}}" wx:key="index" wx:if="{{index+1==starsNum}}">{{item}}</text>
+    </view>
+    <view class="eval-text">
+      <view>
+        <textarea placeholder="您的评价是对我们最大的肯定～" maxlength="500" bindinput="onInput">{{text}}</textarea>
+      </view>
+      <view class="textLen {{textLen==500?'color-red':''}}">（{{textLen}}/500）</view>
+      <view class="camera-box">
+        <view class='pic-item' wx:for="{{filePaths}}" wx:key="index">
+          <image src="{{item}}" mode="aspectFill"></image>
+          <icon class='clear-icon' type='clear' size="20" color="#000" data-index="{{index}}" bindtap='onClearIcon'></icon>
+        </view>
+        <view class="pic-item camera-info" wx:if="{{filePaths.length<9}}" bindtap='addCamera'>
+          <image src='https://devskin.manjd.net/miniprogram/images/camera.png' mode='aspectFill'></image>
+          <view style="font-size:22rpx;color:#999;margin-top:8rpx;">添加图片</view>
+        </view>
+      </view>
+    </view>
+    <view class="eval-btn">
+      <view class="checkbox">
+        <view class="{{is_checked?'checked':'check'}}" bindtap="checkClick"></view>
+        匿名评价
+      </view>
+      <text style="font-size:22rpx;color:#999;margin-left:20rpx;">勾选后评价将以匿名方式展现</text>
+      <view>
+        <button class='btn-submit-eval' bindtap='onSubmit'>提交</button>
+      </view>
+    </view>
+  </view>
+</view>

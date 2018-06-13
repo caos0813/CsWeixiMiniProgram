@@ -1,0 +1,189 @@
+<!--pages/goods/goodsDetail/goodsDetail.wxml-->
+<scroll-view scroll-y class="container">
+  <view class="preview-wrap{{previewDialog%2==0?'':' fixed'}}" bind:tap="onShowPreview" animation="{{animationData}}">
+    <view class="preview-indicator">{{(previewIndex+1)+'/'+goodsInfo.spupic.length}}</view>
+    <swiper indicator-dots bindchange="onSwiperImageChange" indicator-active-color="#FF681D" indicator-color="#CCCCCC" class="preview-swiper" autoplay interval="3000">
+      <block wx:for="{{goodsInfo.spupic}}" wx:key="{{index}}" wx:for-item="url">
+        <swiper-item class="preview-item">
+          <image src="{{url}}" lazy-load class="preview-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="backline"></view>
+  <view class="product-intro">
+    <view class="title-wrap">
+      <view class="title">{{goodsInfo.title}}</view>
+      <button class="share"   open-type="share"><image src="{{shareIcon}}" >
+      </image>
+      </button>
+    </view>
+    <view class="subtitle">
+      {{goodsInfo.attachtitle}}
+    </view>
+    <view class="price-wrap">
+      <view class="sales-price">
+        ¥{{goodsInfo.skupricemin}}
+      </view>
+      <view class="market-price" wx:if="{{goodsInfo.marketpricemin>goodsInfo.skupricemin}}">
+        ¥{{goodsInfo.marketpricemin}}
+      </view>
+    </view>
+  </view>
+  <view class="service-description" bind:tap="onShowServiceDesc">
+    <view>
+      <view class="icon-home-sign"></view>
+      <text>正品保障</text>
+    </view>
+    <view>
+      <view class="icon-home-sign"></view>
+      <text class='inline'>全场包邮</text>
+    </view>
+    <view>
+      <view class="icon-home-sign"></view>
+      <text class='inline'>极速发货</text>
+    </view>
+    <view wx:if="{{allowreturn==1}}">
+      <view class="icon-home-sign"></view>
+      <text class='inline'>7天无理由退换</text>
+    </view>
+
+  </view>
+  <view class="spec-wrap" bind:tap="onShowSpec">
+    <view>{{selectedSpecsText==''?'请选择规格':'已选'}}</view>
+    <view class="spec-list">
+      <view>{{selectedSpecsText}}</view>
+    </view>
+    <view class="arrow-r"></view>
+  </view>
+  <view class="separation-line"></view>
+  <evaluate-list list="{{goodsInfo.comment.list}}" spuid="{{goodsInfo.spuid}}" statistics="{{goodsInfo.comment.summary}}"></evaluate-list>
+  <view class="separation-line"></view>
+  <view class="goods-info{{goodsInfoTopPos?' goods-info-fixed':''}}">
+    <navtab tabs="{{['商品详情','规格参数','购买须知']}}" current-index="0" bind:change="onTabChange">
+    </navtab>
+    <view class="tab-content">
+      <view wx:if="{{swiperIndex==0}}" class="tab-detail">
+        <view class="tab-content-title">
+          <view></view>商品详情
+          <view></view>
+        </view>
+        <block wx:for="{{goodsInfo.intropic}}" wx:key="{{item.picname}}">
+          <image style="width:750rpx;" mode="widthFix" lazy-load src="{{item.picname}}"></image>
+        </block>
+      </view>
+      <view wx:elif="{{swiperIndex==1}}" class="tab-spec">
+        <view class="spec-table">
+          <view wx:for="{{goodsInfo.specinfo}}" class="spec-item" wx:key="index">
+            <view class="spec-group">{{item.groupname}}</view>
+            <view class="spec-attr-list">
+              <view class="spec-attr" wx:for="{{item.attrs}}" wx:key="{{attrIndex}}" wx:for-index="attrIndex" wx:for-item="attr">
+                <view>{{attr.name}}</view>
+                <view>
+                  <view>{{attr.value}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:elif="{{swiperIndex==2}}">
+        <view class="tab-content-title">
+          <view></view>购买需知
+          <view></view>
+        </view>
+        <image src="{{goodsInfo.tradrulepic}}" lazy-load style="min-width:750rpx;height:726rpx" lazy-load></image>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<view class="bottom-toolbar">
+  <view class="toolbar-btns">
+    <navigator class="toolbar-btn" open-type="switchTab" url="/pages/index/index">
+      <view class="icon-home"></view>
+      <view> 首页</view>
+    </navigator>
+    <view class="toolbar-btn">
+      <view class="icon-customer-service"></view>
+      <view>客服</view>
+    </view>
+    <navigator class="toolbar-btn" open-type="switchTab" url="/pages/cart/cartList">
+      <view class="icon-shopping-cart"></view>
+      <view>购物车</view>
+      <view class="tip" wx:if="{{cartGoodsNumber>0}}">{{cartGoodsNumber>99?'99+':cartGoodsNumber}}</view>
+    </navigator>
+  </view>
+  <view class="shopping-cart bottom-btn" bind:tap="onAddShoppingCart" wx:if="{{goodsInfo.issoldout==0}}">
+    加入购物车
+  </view>
+  <view class="buy bottom-btn" bind:tap="onBuy" wx:if="{{goodsInfo.issoldout==0}}">
+    立即购买
+  </view>
+  <view class="bottom-btn disabled" wx:if="{{goodsInfo.issoldout==1&&goodsInfo.status!=9}}">
+    已售馨
+  </view>
+  <view class="bottom-btn disabled" wx:if="{{goodsInfo.status==9}}">
+    商品已下架
+  </view>
+</view>
+
+<bottommenu buttons="{{bottomButtons}}" visible="{{specVisible}}" bind:change="onBottomChange">
+  <view class="spec-dialog">
+    <view class="spec-dialog-intro">
+      <image src="{{currentSkuInfo.skupic}}" lazy-load></image>
+      <view>
+        <view class='spec-dialog-price'>¥{{currentSkuInfo.saleprice > 0?currentSkuInfo.saleprice:goodsInfo.skupricemin}}</view>
+        <view class='spec-dialog-selected'>{{selectedSpecsText!=''?'已选':'请选择规格'}}{{selectedSpecsText}}</view>
+      </view>
+    </view>
+    <view wx:for="{{skuattrname}}" wx:key="{{item.index}}" class="spec-control">
+      <view class="spec-control-title">
+        {{item.templetname}}
+      </view>
+      <view class="spec-control-group">
+        <view class="radio{{attr.status>0?' disabled':attr.index==currentSkuIndex[attr.groupIndex]?' active':''}}" bind:tap="onSelectSpec" data-status="{{attr.status}}" data-group-index="{{attr.groupIndex}}" data-index="{{attr.index}}" wx:for="{{item.templetvalue}}" wx:key="attr.index" wx:for-item="attr" wx:for-index="attrindex">
+          <label>{{attr.attrname}}</label>
+        </view>
+      </view>
+    </view>
+    <view class="spec-control-group">
+      <view>
+        数量
+      </view>
+      <number-input style='margin-left:370rpx'  min="1" max="{{currentSkuInfo.stockqty>200?200:currentSkuInfo.stockqty}}" value="{{buyCount}}" bind:change="onBuyCount">
+      </number-input>
+    </view>
+  </view>
+</bottommenu>
+
+<bottommenu visible="{{serviceDescVisible}}">
+  <view class="service-desc">
+    <view class="service-desc-title">
+      <image src="{{qualityIcon}}" lazy-load></image>
+      <view>100%正品保障</view>
+    </view>
+    <view class="service-desc-con">平台精选优质供应商，从源头上保障产品100%正品。</view>
+    <view class="service-desc-title">
+      <image src="{{shippingIcon}}" lazy-load></image>
+      <view>全场包邮</view>
+    </view>
+    <view class="service-desc-con">除港澳台地区及特别说明除外，平台商品全场包邮。</view>
+    <view class="service-desc-title">
+      <image src="{{ship24Icon}}" lazy-load></image>
+      <view>24小时发货</view>
+    </view>
+    <view class="service-desc-con">
+    <view>发货时效：订单支付成功后，预计24小时内发货</view>
+     <view>预售票、定制品、跨境商品、大促活动商品及特殊说明除外，</view>
+      <view>交通管制、节假日等原因可能会导致发货延迟，尽情谅解。</view>
+       <view>发货快递：平台商品由商家负责发货，暂不支持指定快递。</view>
+    </view>
+    <view class="service-desc-title" wx:if="{{allowreturn==1}}">
+      <image src="{{day7Icon}}" lazy-load></image>
+      <view>7天无理由退换货</view>
+    </view>
+    <view class="service-desc-con" wx:if="{{allowreturn==1}}">品牌商家负责售后，支持7天无理由退换货（特殊说明除外）。</view>
+  </view>
+  </bottommenu>
+    <view class="go-top" wx:if="{{showGoTop}}" bindtap="goTop"></view>

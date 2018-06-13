@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "评价",
+  "usingComponents": {
+    "empty-eval":"/components/empty/emptyGood",
+    "eval-list": "/components/evaluateList/evaluateGoods"
+  },
+  "disableScroll": false,
+  "enablePullDownRefresh": false,
+  "backgroundTextStyle": "dark"
+}

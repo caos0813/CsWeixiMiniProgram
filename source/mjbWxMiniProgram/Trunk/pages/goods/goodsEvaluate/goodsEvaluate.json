@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "商品评价",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "evaluate-list": "/components/evaluateList/evaluateList",
+     "empty": "/components/empty/emptyGood"
+  },
+  "disableScroll": false,
+  "onReachBottomDistance": 50,
+  "backgroundTextStyle": "dark"
+}

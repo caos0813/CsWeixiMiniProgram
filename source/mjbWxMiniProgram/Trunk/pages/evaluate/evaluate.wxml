@@ -1,0 +1,103 @@
+<!-- pages/evaluate/evaluate.wxml -->
+<view class="container">
+  <view class="eval-wrap">
+    <view class="eval-title">
+      <text class="{{index==1?'active':''}}" data-index="1" bindtap="evalTitleChange">待评价</text>
+      <text class="{{index==2?'active':''}}" data-index="2" bindtap="evalTitleChange">已评价</text>
+    </view>
+  </view>
+  <view style="margin-top: 72rpx;">
+    <!-- 待评价 -->
+    <view wx:if="{{!isEvaluated}}" class="be-eval">
+      <view wx:if="{{pendindCommentList.length>0}}">
+        <view class="goodslist-item" wx:for="{{pendindCommentList}}" wx:key="{{item.spuid}}">
+          <view class="goodslist-pic">
+            <image src="{{item.goodslistpicurl}}" mode="aspectFill"></image>
+          </view>
+          <view class="goodslist-info">
+            <view class="gl-top">
+              <view class="gl-name-wrap">
+                <text>{{item.title}}</text>
+              </view>
+              <view class="gl-format">
+                <text>{{item.spec}}</text>
+              </view>
+            </view>
+            <view class="gl-bot">
+              <view>
+                <text class="gl-price">￥{{item.salesprice}}</text>
+                <text class="gl-num">x{{item.qty}}</text>
+              </view>
+              <view class="gl-eval">
+                <button data-info="{{item}}" bindtap='onNowEval'>立即评价</button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:else class='logis-empty'>
+        <view>
+          <image src='https://devskin.manjd.net/miniprogram/images/logistics-empty.png' mode='aspectFill'></image>
+          <view class='empty-text'>您暂时没有可评价的商品</view>
+          <button class='look-around'>随便逛逛</button>
+        </view>
+      </view>
+    </view>
+    <!-- 已评价 -->
+    <view wx:else class="evaluated">
+      <view class="eval-item" wx:for="{{commentList}}" wx:key="{{item.spuid}}">
+        <view class="eval-info">
+          <view class="ev-personInfo">
+            <view class="per-info">
+              <image src="{{item.usericon}}"></image>
+              <text class="per-name">{{item.nickname}}</text>
+            </view>
+            <view class="ev-date">
+              <text>{{item.createtime}}</text>
+            </view>
+          </view>
+          <view class="ev-start">
+            <block wx:for="{{5}}" wx:for-item="startItem" wx:key="index">
+              <text class="{{ index < item.stars ? 'active' : ''}}">★</text>
+            </block>
+          </view>
+          <view class="ev-content">{{item.filtertext}}</view>
+          <view class="ev-pic">
+            <image wx:for="{{item.piclist}}" wx:for-item="picItem" wx:key="index" src="{{picItem}}"></image>
+          </view>
+          <view class="ev-format">
+            <text>{{item.spec}}</text>
+          </view>
+        </view>
+        <view class="goodslist-item">
+          <view class="goodslist-pic">
+            <image src="{{item.goodslistpicurl}}"></image>
+          </view>
+          <view class="goodslist-info">
+            <view class="gl-top">
+              <view class="gl-name-wrap">
+                <text>{{item.title}}</text>
+              </view>
+              <view class="gl-format">
+                <text>{{item.spec}}</text>
+              </view>
+            </view>
+            <view class="gl-bot">
+              <view>
+                <text class="gl-price">￥{{item.salesprice}}</text>
+                <text class="gl-num">x{{item.qty}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="loading-container" wx:if="loading>0">
+  <view class="is-loading" wx:if="{{loading==1}}">
+    <view class="loading-icon"></view>
+    正在加载中
+  </view>
+  <view class="no-more" wx:if="{{loading==2}}">没有更多了</view>
+</view>

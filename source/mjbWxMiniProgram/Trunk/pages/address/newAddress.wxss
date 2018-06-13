@@ -1,0 +1,184 @@
+/* pages/address/manager.wxss */
+
+page {
+  font-size: 28rpx;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+.address-new-wrap {
+  border-top: 1px solid #E5E5E5;
+}
+
+.section {
+  height: 88rpx;
+  line-height: 88rpx;
+  padding: 0 22rpx;
+  background-color: #fff;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.section-name {
+  float: left;
+  width: 170rpx;
+  font-size: 30rpx;
+}
+
+.section-text {
+  height: 220rpx;
+  line-height: 40rpx;
+}
+.section-text textarea {
+  width: 100%;
+  height: 100%;
+  padding: 20rpx 0;
+  box-sizing: border-box;
+}
+
+.section-region, .section-radio-wrap, .section-label {
+  float: left;
+  width: calc(100% - 170rpx);
+}
+
+.section-radio-wrap label {
+  position: relative;
+  margin-right: 20rpx;
+  padding: 5rpx 10rpx;
+  color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 8rpx;
+}
+
+.section-radio-wrap label.active {
+  color: #FF681D;
+  border-color: #FF681D;
+}
+
+.section-radio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+
+.section input {
+  height: 88rpx;
+  line-height: 88rpx;
+}
+
+.section-default {
+  height: 88rpx;
+  line-height: 88rpx;
+  padding: 0 22rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+
+.section-default switch {
+  float: right;
+}
+
+.section-label-wrap {
+  height: auto;
+  padding: 18rpx 22rpx;
+  line-height: 46rpx;
+}
+
+.section-label-wrap:after, .section-label:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.section-label-item {
+  float: left;
+  padding: 0 10rpx;
+  margin-right: 15rpx;
+  color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 8rpx;
+}
+
+.section-label-item.active {
+  color: #FF681D;
+  border-color: #FF681D;
+}
+
+.btn-area {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100rpx;
+}
+
+.btn-area button {
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 34rpx;
+  color: #fff;
+  border: 0;
+  border-radius: 0;
+  background-color: #FF681D;
+}
+
+.city-wrap {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.city-btn {
+  position: absolute;
+  bottom: 300px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  padding:0 20px;
+  border-top: 1px solid #E5E5E5;
+  border-bottom: 1px solid #E5E5E5;
+  box-sizing: border-box;
+}
+
+.city-check {
+  float: right;
+  color: #FF681D;
+}
+
+.city-cancel {
+  float: left;
+}
+
+.city-item {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+}
+
+.city-list {
+  text-align: center;
+  line-height: 50px;
+}
+
+.hide-form {
+  display: none;
+}
+
+.hide-city {
+  bottom: -100%;
+}
+
+.wx-switch-input {
+  border-color: #ccc!important;
+  background-color: #FF681D!important;
+}

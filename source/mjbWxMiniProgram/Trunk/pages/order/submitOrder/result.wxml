@@ -1,0 +1,28 @@
+
+<form bindsubmit="formSubmit" class="form" report-submit="true">
+<view class="pay-wrap">
+<view class="content">
+  <view >
+  <image class="icon" src="{{payStatus==1?iconSuccess:iconFail}}" lazy-load></image>
+  </view>
+  <view class="pay-result">
+     <view wx:if="{{payStatus==1}}">支付成功</view>
+     <view wx:else>支付失败</view>
+  </view>
+  <view class="pay-defail" wx:if="{{payStatus==1}}">
+     <view>¥ 383</view>
+  </view>
+</view>
+<view class="buttons" wx:if="{{payStatus==1}}">
+     <button bind:tap="onShowOrder">查看订单</button>
+    <button bind:tap="onNavIndex">继续逛逛</button>
+</view>
+<view class="buttons" wx:else>
+     <button bind:tap="onShowOrder">查看订单</button>
+    <button bind:tap="onRePay">重新支付</button>
+</view>
+</view>
+<view class="remind" wx:if="{{payStatus==1}}">
+安全提醒：付款成功后，官方不会以任何理由发送退款链接。请勿泄露银行卡号、手机验证码，谨防诈骗！
+</view>
+</form>

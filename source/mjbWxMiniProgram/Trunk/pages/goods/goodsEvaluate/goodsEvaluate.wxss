@@ -1,0 +1,35 @@
+page{
+    background-color: #F5F5F5;
+}
+.evaluate-header{
+    display: flex;
+    padding: 20rpx 30rpx;
+    font-size: 26rpx;
+    border-bottom: 1rpx solid rgba(229,229,229,1);
+    background-color: #ffffff;
+}
+.evaluate-header>view:first-child{
+    flex-grow: 1;
+    color: #666666;
+}
+.evaluate-header>view:last-child{
+    flex-grow: 1;
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+}
+.evaluate-header>view:last-child>view:nth-child(1){
+  color: #333333;
+ margin-right: 10rpx;
+}
+.evaluate-header>view:last-child>view:nth-child(2){
+  color: #FF681D;
+  margin-right: 24rpx;
+}
+.evaluate-body{
+  padding:24rpx 0rpx 30rpx;
+}
+.separation-line{
+  height:20rpx;
+  background:rgba(245,245,245,1);
+}
