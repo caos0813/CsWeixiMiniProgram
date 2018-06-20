@@ -24,7 +24,12 @@ app.Component({
    * 组件的方法列表
    */
   methods: {
-
+    onShowDetail(e){
+      let {spuid}=e.currentTarget.dataset;
+      wx.navigateTo({
+        url: `/pages/goods/goodsDetail/goodsDetail?spuid=${spuid}`
+      })
+    }
   },
   // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
   attached: function () {

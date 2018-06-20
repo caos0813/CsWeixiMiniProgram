@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "分类",
-  "enablePullDownRefresh": true,
+  "enablePullDownRefresh": false,
   "usingComponents": {
     "good-list": "/components/goodList/goodList",
     "filter-bar":"/components/filterBar/filterBar",

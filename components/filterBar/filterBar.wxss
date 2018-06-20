@@ -36,14 +36,14 @@
   width: 14rpx;
   height: 24rpx;
   margin-left: 7rpx;
-  background-image: url(http://192.168.10.65:168/images/icon-sort-default.png);
+  background-image: url(https://devskin.manjd.net/miniprogram/images/icon-sort-default.png);
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
 }
 .price.desc view {
-  background-image: url(http://192.168.10.65:168/images/icon-sort-desc.png);
+  background-image: url(https://devskin.manjd.net/miniprogram/images/icon-sort-desc.png);
 }
 .price.asc view {
-  background-image: url(http://192.168.10.65:168/images/icon-sort-asc.png); 
+  background-image: url(https://devskin.manjd.net/miniprogram/images/icon-sort-asc.png); 
 }

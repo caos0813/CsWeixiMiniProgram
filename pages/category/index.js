@@ -12,6 +12,8 @@ app.Page({
    */
   data: {
       selectedIndex:0,
+      currentBannerIndex:0,
+      categoryName:'',
       banner:[],
       categoryList:[],
       subcategoryList:[]
@@ -36,7 +38,7 @@ app.Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
@@ -89,13 +91,16 @@ app.Page({
     }
     let item=this.data.categoryList[index];
     this.setNextData({
+      currentBannerIndex:0,
+      categoryName: item.catename,
       banner: item.topcatepic,
       subcategoryList: item.subcate,
       selectedIndex:index
     })
   },
   onTabItemTap(){
-    this.showCategory(0);
+  //  this.showCategory(0);
+    this.showData();
   },
   //显示分类下面子类
   onShowCategory(e)
@@ -109,5 +114,14 @@ app.Page({
     let subcate= this.data.categoryList[this.data.selectedIndex].subcate;
     let {cateid,catename,refvalue} = subcate.find(d=>d.cateid==id)
     this.mjd.navigateTo(`detail?id=${cateid}&catename=${catename}&sortid=${refvalue}`)
+  },
+  onBannerNav(e){
+    let {index}=e.currentTarget.dataset;
+    let { refvalue: spuid, type } = this.data.banner[index];
+    if (type == 2) {
+      this.mjd.showToast('暂不支持打开第三方页面');
+    } else if (type == 1) {
+      this.mjd.navigateTo(`/pages/goods/goodsDetail/goodsDetail?spuid=${spuid}`);
+    }
   }
 })

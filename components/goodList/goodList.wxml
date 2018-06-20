@@ -1,12 +1,12 @@
 <!--components/goodList/goodList.wxml-->
 
 <wxs src="../../utils/tools.wxs" module="tools" />
-  <scroll-view scroll-y>
+  <scroll-view scroll-y >
 <view class="goodslist-box">
-  <view wx:for="{{goodsArr}}" wx:key="{{spuid}}" class="goodslist-item">
+  <view wx:for="{{goodsArr}}" wx:key="{{item.spuid}}" class="goodslist-item" bind:tap="onShowDetail" data-spuid="{{item.spuid}}">
     <view class="goodslist-pic">
       <image src="{{item.goodslistpicurl}}"></image>
-      <view class="gl-saleover" wx:if="{{!!issoldout}}">
+      <view class="gl-saleover" wx:if="{{!!item.issoldout}}">
         <view class="saleover">
           <text class="saleover-txt">/ 已售完 /</text>
         </view>

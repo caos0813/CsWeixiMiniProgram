@@ -48,6 +48,9 @@ button::after {
 .phone-wrap {
   padding-right: 34rpx;
 }
+.code-wrap {
+  margin-top: 36rpx;
+}
 .ipt-wrap text {
   line-height: 45rpx;
 }

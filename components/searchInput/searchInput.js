@@ -1,3 +1,7 @@
+/*
+搜索输入框
+@dev fanyl
+*/
 const app = getApp()
 // components/searchInput/searchInput.js
 app.Component({
@@ -22,7 +26,7 @@ app.Component({
    */
   methods: {
     onFocus(e) {
-      app.mjd.navigateTo('/pages/search/hotSearch');
+      app.mjd.navigateTo('/pages/search/search');
     }
   }
 })

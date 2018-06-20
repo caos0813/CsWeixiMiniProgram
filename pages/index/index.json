@@ -4,5 +4,6 @@
       "goodListTwo": "/components/goodList/goodList2line",
       "goodListThree": "/components/goodList/goodList3line"
   },
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
 }

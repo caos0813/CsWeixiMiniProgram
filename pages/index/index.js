@@ -1,4 +1,4 @@
-//index.js
+//index.js 首页
 //获取应用实例
 const app = getApp();
 const { getBanner, getIndexRecommend, getShopHandpicked } = require('../../apis/goods.js');
@@ -12,7 +12,7 @@ app.Page({
     rankInfo: [],
     bigBrands: [],
     newProducts: [],
-    ad: {},
+    ad: [],
     showGoTop: false,
     windowHeight: 0
   },
@@ -22,11 +22,16 @@ app.Page({
     this.pageGetShopHandpicked();
   },
   // 获取banner
-  pageGetBanner: function() {
-    getBanner().then(res => {
-      console.log(res);
-      this.setNextData({
-        banner: res[0].banner
+  pageGetBanner: function (autoShowLoading=true) {
+    getBanner({}, autoShowLoading).then(res => {
+      let banner = [];
+      for (let i = 0; i < res[0].banner.length; i++) {
+        if (res[0].banner[i].type == 2) {
+          banner.push(res[0].banner[i])
+        }
+      }
+      this.setData({
+        banner: banner
       })
     }, () => {
       console.log('fail');
@@ -35,12 +40,17 @@ app.Page({
   // 获取模块
   pageGetRecommend: function() {
     getIndexRecommend().then(res => {
-      console.log(res);
-      this.setNextData({
+      let ad = [];
+      for(let i=0; i<res.advertinfolist.length; i++) {
+        if(res.advertinfolist[i].referencetype == 1) {
+          ad.push(res.advertinfolist[i]);
+        }
+      }
+      this.setData({
         rankInfo: res.rankinfo,
         bigBrands: res.bigbrands,
         hotGoods: res.hotgoods,
-        ad: res.advertinfo,
+        ad: ad,
         newProducts: res.newgoods,
         guessLiked: res.guessyoulike
       });
@@ -52,8 +62,7 @@ app.Page({
   // 获取精选
   pageGetShopHandpicked: function() {
     getShopHandpicked().then(res => {
-      console.log(res);
-      this.setNextData({
+      this.setData({
         shopHandPicked: res.indexchoicesgoods
       });
     }, () => {
@@ -67,15 +76,17 @@ app.Page({
     })
   },
   onPullDownRefresh: function() {
-    this.init();
+    this.pageGetBanner(false);
+    this.pageGetRecommend();
+    this.pageGetShopHandpicked();
   },
   // 热销榜跳转
   goRankNav: function(e) {
     let id = e.currentTarget.dataset.id;
     let pages = {
       '3': '../brand/brandHot/brandHot',
-      '14': '../monthHot/monthHot',
-      '13': '../goodsTop/goodsTop'
+      '14': '../goods/monthHot/monthHot',
+      '13': '../goods/goodsTop/goodsTop'
     };
     wx.navigateTo({
       url: pages[id],
@@ -86,26 +97,20 @@ app.Page({
   },
   onLoad: function () {
     // 获取屏幕高度
-    let self = this;
-    wx.getSystemInfo({
-      success: function(res) {
-        self.setNextData({
-          windowHeight: res.windowHeight
-        });
-      },
-    })
-    this.init();
-    // this.mjd.loginGetAuth();
-  },
-  onPageScroll: function(e) {
-    if(e.scrollTop > this.data.windowHeight) {
+    this._pageScrollTop = new this.mjd.PageScroll(app.globalData.stytemInfo.windowHeight);
+    this._pageScrollTop.onDown(() => {
       this.setData({
         showGoTop: true
-      });
-    }else {
+      })
+    });
+    this._pageScrollTop.onUp(() => {
       this.setData({
         showGoTop: false
-      });
-    }
+      })
+    });
+    this.init();
+  },
+  onPageScroll: function(e) {
+    this._pageScrollTop.scroll(e.scrollTop);
   }
 })

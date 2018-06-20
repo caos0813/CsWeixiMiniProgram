@@ -11,11 +11,12 @@ const {
 
 // 针对api promise 包装
 let wxAPIKeys = [
+  'login',
   // 导航
-  'navigateTo',
-  'redirectTo',
-  'switchTab',
-  'reLaunch',
+  'navigateTo',// 跳转非tabbar 页面
+  'redirectTo',// 关闭当前页打开另一页面，不能打开tabbar的页面
+  'switchTab',// 打开tabbar页面，关闭所有非tabbar页面,跳转tabbar页时不能带参数
+  'reLaunch',//关闭所有页面，打开到应用内的某个页面。跳转tabbar页时不能带参数
   'navigateBack',
   // 界面交互
   'showToast',
@@ -63,13 +64,33 @@ wxAPI.navigateTo = function (url) {
     url: url
   })
 }
+wxAPI.redirectTo = function (url) {
+  return originWxAPI.redirectTo({
+    url: url
+  })
+}
+wxAPI.switchTab = function (url) {
+  return originWxAPI.switchTab({
+    url: url
+  })
+}
+wxAPI.reLaunch = function (url) {
+  return originWxAPI.reLaunch({
+    url: url
+  })
+}
+wxAPI.navigateBack = function (delta=1) {
+  return originWxAPI.navigateBack({
+    delta: delta
+  })
+}
 
 
 // 界面
 wxAPI.showToast = function (title) {
   let options = {
     title: title,   //	String	是	提示的内容	
-    icon: null,     //	String	否	图标，有效值 "success", "loading", "none"	
+    icon: 'none',     //	String	否	图标，有效值 "success", "loading", "none"	
     image: null,    //	String	否	自定义图标的本地路径，image 的优先级高于 icon	1.1.0
     duration: 1500, //	Number	否	提示的延迟时间，单位毫秒，默认：1500	
     mask: false     //  Boolean	否	是否显示透明蒙层，防止触摸穿透，默认：false

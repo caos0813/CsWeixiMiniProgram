@@ -6,6 +6,7 @@ const {
   getAPIUrl
 } = require('./config.js');
 const {
+  isArray,
   extend,
   wrapPromise,
   isPlainObject,
@@ -66,12 +67,12 @@ function processOptions(options) {
   if (options.name) {
     options.url = getAPIUrl(options.name)
   }
-
-  // 处理data
-  if (!isPlainObject(options.data)) {
+  if (!isPlainObject(options.data) && !isArray(options.data)) {
     options.data = {}
   }
-  options.data = extend({}, requestData, options.data)
+  if (isPlainObject(options.data)){
+    options.data = extend({},requestData, options.data)
+  }  
   if (!isPlainObject(options.header)) {
     options.header = {}
   }
@@ -80,11 +81,10 @@ function processOptions(options) {
   //options.header['content-type'] = 'application/json' // 默认值
   return options;
 }
-let requestCount = 0, isShowLoading = false;
+let requestCount = 0, isShowLoading = false, autoHideLoading=true;
 const requestObservable = new Observable()
 requestObservable.on('before', function (options) {
   if (requestCount++ == 0) {
-
     this.emit('start', options)
   }
 })
@@ -94,18 +94,50 @@ requestObservable.on('complete', function () {
     this.emit('stop')
   }
 })
+
+
 requestObservable.on('start', function (options) {
   if (!isShowLoading && options.autoShowLoading) {
     isShowLoading = options.autoShowLoading;
+    autoHideLoading = options.autoHideLoading;
     wxAPI.showLoading(options.showLoadingText)
   }
 })
 requestObservable.on('stop', function (options) {
   if (isShowLoading) {
     isShowLoading = false;
-    wxAPI.hideLoading()
+    autoHideLoading&&wxAPI.hideLoading();
+  }
+  // 所有请求结束之后，检查因token请求失败的接口，重新发起请求
+  if (rerequestState==0&&tokenRerequests.length){
+    rerequestState=1;
+    this.emit('logout', tokenRerequestHanlder);
   }
 })
+
+function tokenRerequestHanlder()
+{
+  let tokenRerequestsCopy = tokenRerequests.slice();
+  tokenRerequests.length=0;
+  let len = tokenRerequestsCopy.length;
+  while (tokenRerequestsCopy.length){
+    let fn = tokenRerequestsCopy.shift();
+    fn().catch(()=>{}).then(()=>{
+      len--;
+      if (len>0){
+        return;
+      }
+      if (tokenRerequests.length > 0) {
+        tokenRerequestHanlder();
+      } else {
+        rerequestState = 0;
+      }
+    })
+  }
+  
+}
+// 重新请求,
+let tokenRerequests = [],rerequestState=0;
 
 /**
  * 请求网络
@@ -113,6 +145,7 @@ requestObservable.on('stop', function (options) {
  * @return {promise}
  */
 function request(options) {
+  let originOptions = options;
   options = extend({
     name: '',               //  接口配置映射名称
     url: '',                //	String	    是		开发者服务器接口地址	
@@ -126,49 +159,61 @@ function request(options) {
     complete: null,         //	Function	否		    接口调用结束的回调函数（调用成功、失败都会执行）
     isCustomError: false,    // 是否自定义错误，
     autoShowLoading: true,
-    showLoadingText: '加载中...'
+    autoHideLoading:true,// 自动隐藏
+    isExtendData:true,
+    showLoadingText: '加载中...',
+    isWrapSuccess:true // false:成功返回函不进行任何包装，直接回调
   }, options || {})
   let successCallback = Callbacks('once memory');
   let failCallback = Callbacks('once memory');
   let completeCallback = Callbacks('once memory');
   let abortCallback = Callbacks('once memory');
   let {
-        isCustomError,
+    isWrapSuccess,
+    isCustomError,
     url,
     success,
     fail,
-    complete
+    complete,
     } = processOptions(options); // 针对options加工，分离处理逻辑
 
   // 触发
   requestObservable.emit('before', options);
-  successCallback.add(requestObservable.emit.bind(requestObservable, 'complete'))
-  failCallback.add(requestObservable.emit.bind(requestObservable, 'complete'))
+  completeCallback.add(requestObservable.emit.bind(requestObservable, 'complete'))
 
+
+  // 重新发起请求
+  function rerequest()
+  {
+    return request(originOptions).then(successCallback.fire, failCallback.fire);
+  }
   /**
    * 成功回调处理
    */
   function successHandler({ data, statusCode, header }) {
     const { code, data: resultData, message } = data;
     // 后台返回成功状态码
-    if (code === responseStatusCode.NORMAL) {
-      successCallback.fire(resultData);
+    if (code === responseStatusCode.UNAUTHORIZED){
+       tokenRerequests.push(rerequest);
+     // wxAPI.showToast({ title: '登录失效', icon: 'none' })
+    } 
+    else if (!isWrapSuccess) {
+      successCallback.fire(data);
+     }else if (code === responseStatusCode.NORMAL) {
+       successCallback.fire(resultData);
     } else {
-      wxAPI.showToast({
-        title: message,
-        icon: 'none'
-      });
+       failHandler(message)
     }
   }
   /**
    * 失败回调处理
    */
-  function failHandler() {
+  function failHandler(message) {
     if (isCustomError) {
-      failCallback.fire();
+      failCallback.fire(message);
       return;
     }
-    wxAPI.showToast({ title: '请求失败！' })
+    wxAPI.showToast({ title: message||'请求失败！',icon:'none' })
   }
   // 兼容wx原生使用处理
   if (isFunction(success)) {
@@ -215,10 +260,31 @@ function createRequest(method = 'GET') {
 }
 let postRequest = createRequest('POST');
 let getRequest = createRequest('GET');
-module.exports = {
+
+const uploadFile=(name,options)=>{
+  options.url = getAPIUrl(name)
+  if (!isPlainObject(options.formData)) {
+    options.formData = {}
+  }
+  if (isPlainObject(options.formData)) {
+    options.formData = extend({}, requestData, options.formData)
+  }
+  if (!isPlainObject(options.header)) {
+    options.header = {}
+  }
+  options.header = extend({}, requestHeader, options.header);
+ 
+  return wx.uploadFile(options);
+}
+
+let exports = {
+  requestObservable,
+  responseStatusCode,
   setCommonData,
   setCommonHeader,
   request,
   getRequest,
-  postRequest
+  postRequest,
+  uploadFile
 }
+module.exports = exports;

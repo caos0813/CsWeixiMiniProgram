@@ -9,8 +9,10 @@
   width: 210rpx;
   display: flex;
   flex-direction: column;
-  margin-bottom: 35rpx;
+  padding-bottom: 35rpx;
   font-size: 26rpx;
+  height: 100%;
+  box-sizing: border-box;
 }
 .item-pic {
   width: 100%;

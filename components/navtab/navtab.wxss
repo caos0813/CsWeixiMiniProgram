@@ -7,27 +7,23 @@
 }
 .tabs{
     display: flex;
+    border: 1rpx solid rgba(229,229,229,1);
 }
 .tab-item{
   color: #333333;
   flex-grow: 1;
   text-align: center;
-  height: 100rpx;
   background-color: #ffffff;
   line-height: 100rpx;
 }
 .tab-item.active{
   color: #FF681D;
 }
-.tab-line{
-  height:1px;
-  background:rgba(229,229,229,1);
-  position: relative;
+.tab-item.active>view::after{
+   content: '';
+   display: block;
+  border-bottom:4rpx solid #FF681D;
 }
-.tab-line .active{
-  height:4rpx;
-  background:rgba(255,104,29,1);
-  position: absolute;
-  left: 0;
-  top:-2rpx;
+.tab-item>view{
+  display:inline-block;
 }

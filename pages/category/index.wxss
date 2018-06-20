@@ -1,6 +1,7 @@
 .search-header{
   padding:5rpx 32rpx 20rpx;
   border-bottom: 1rpx solid #E5E5E5;
+  background-color: #fafafa;
 }
 .content{
   display: flex; 
@@ -10,6 +11,7 @@
   width: 200rpx; 
   box-sizing: border-box;
 }
+
 .right{
   width:550rpx;
   box-sizing: border-box;
@@ -23,7 +25,7 @@
   height:1000rpx;
 }
 .banner-image{
-  width: 470repx;
+  width: 470rpx;
   height: 206rpx;
 }
 .item{
@@ -40,13 +42,19 @@
   justify-content: center;
   box-sizing: border-box;
 }
+.item .item-text{
+  overflow: hidden;
+}
 .active{
   background-color: #FFFFFF;
   color: #FF681D;
   border-right-color: #FFFFFF;
 }
+.banner-swiper{
+  margin-bottom: 40rpx;
+}
 .header{
-  padding: 40rpx 0rpx 30rpx;
+  padding: 0rpx 0rpx 30rpx;
 }
 .title{
    font-size: 28rpx;

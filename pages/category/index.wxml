@@ -10,17 +10,17 @@
 </scroll-view>
 </view>
 <view class="right">
-<scroll-view class='right-container' scroll-y  >
-  <swiper indicator-dots  style="height:206rpx" >
+<scroll-view class='right-container' scroll-y   >
+  <swiper indicator-dots  class="banner-swiper" style="height:206rpx" current="{{currentBannerIndex}}" wx:if="{{banner.length>0}}">
     <block wx:for="{{banner}}" wx:key="{{index}}">
       <swiper-item>
-        <image src="{{item.pic}}" lazy-load class="banner-image"/>
+        <image src="{{item.pic}}" data-index="{{index}}" bind:tap="onBannerNav" lazy-load class="banner-image"/>
       </swiper-item>
     </block>
   </swiper>
  <view class="header">
    <view class="title">
-      热门分类
+      {{categoryName}}
    </view>
  </view>
      <view class="subcategory clearfix">

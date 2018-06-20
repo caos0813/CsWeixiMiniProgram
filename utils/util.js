@@ -79,6 +79,35 @@ function each(obj, callback, thisArg) {
     }
 }
 
+function intersection(...list)
+{
+  let len=list.length;
+  if (len<=1)
+  {
+    return [];
+  }
+  var result=[];
+  var array=list[0];
+
+  for (let i = 0, mlen = array.length; i < mlen;i++){
+    let item = array[i],isAdd=true;
+    if (result.indexOf(item)!=-1) {
+      continue;
+    }
+    for(let j=1;j<len;j++){
+      if (list[j].indexOf(item)==-1){
+        isAdd=false
+        break;
+      }
+    }
+    if (isAdd)
+    {
+      result.push(item);
+    }
+  }
+  return result; 
+}
+
 function extend() {
     var args = toArray(arguments),
         target = args[0],
@@ -447,10 +476,10 @@ class Pager extends Observable{
     this.total = total;
     this.pageCount = Math.ceil(total / this.pageSize);
     this._emit('pageCountChange')
-    this._emit('change')
+    this._emit('change','total')
   }
-  _emit(name){
-    this.emit(name,this.pageIndex)
+  _emit(name, status){
+    this.emit(name, this.pageIndex, status)
   }
   onChange(callback) {
     this.on('change', callback)
@@ -474,40 +503,49 @@ class Pager extends Observable{
     this._lock=true;
   }
   refresh () {
-    this.pageIndex=1;
-    this._emit('refresh')
+    this._skip(1, true, 'refresh');
   }
-  render(){
-    this.skip(1, true);
+  read(){
+    this._skip(this.pageIndex, true,'read');
+  }
+  _skip(index,force,status='skip'){
+    let pageCount = this.pageCount;
+    if (!force&&pageCount < 1 || this._lock) {
+      return false;
+    }
+    this.pageIndex = Math.max(Math.min(index, pageCount), 1);
+    if (this.pageIndex !== this.prevIndex || force === true) {
+      this.prevIndex = this.pageIndex;
+      this._emit('pageChange', status)
+      this._emit('change',status)
+      return true;
+    }
+    return false;
   }
   skip(index,force) {
-    let pageCount = this.pageCount;
-    if (pageCount < 1 || this._lock)
-    {
-      return;
-    }
-    this.pageIndex = Math.max(Math.min(index, pageCount),1);
-    if (this.pageIndex !== this.prevIndex || force===true)
-    {
-      this.prevIndex = this.pageIndex;
-      this._emit('pageChange')
-      this._emit('change')
-    }
+    this._skip(index, force,'skip')
   }
   prev(){
-    this.skip(this.pageIndex-1);
+    this._skip(this.pageIndex - 1, false, 'prev')
   }
   next() {
-    this.skip(this.pageIndex+1);
+    this._skip(this.pageIndex + 1,false,'next')
   }
 }
 
 class PageScroll{
+  _scrollcallback=noop;
+  _upcallback=noop;
+  _downcallback=noop;
   constructor(scrollPosition)
   {
      this.prevScrollPosition=null;
+     this.currentScrollPosition=0;
      this.scrolling=false;
      this.scrollPosition = scrollPosition;
+  }
+  onScroll(callback) {
+    this._scrollcallback = callback || noop;
   }
   onUp(callback)
   {
@@ -517,6 +555,10 @@ class PageScroll{
     this._downcallback = callback || noop;
   }
   scroll(val){
+    this.currentScrollPosition=val;
+    if (this.scrollPosition == null || this.scrollPosition == undefined||this.scrollPosition<=0){
+      return;
+    }
     if (!this.prevScrollPosition) {
       this.prevScrollPosition=val;
     }
@@ -531,12 +573,52 @@ class PageScroll{
       scrolling = false;
       this._upcallback();
     }
-    this.prevScrollPosition=val;
+    this.prevScrollPosition = this.currentScrollPosition;
     this.scrolling = scrolling;
+    this._scrollcallback(val);
   }
+}
+function once(fn)
+{
+  var r;
+  return function(){
+    if(fn){
+      r= fn.apply(this,arguments);   
+      fn=null;
+    }
+    return r;
+  }
+}
+function getCharWidth(str, fontSize, ratio=0.62){
+  return str.replace(/[^\x00-\xff]/g, '**').length * (fontSize * ratio);
+}
+// 防重复提交
+function preventRepeat(fn, callback) {
+  callback = callback || noop;
+  var obj = {
+    state: '',
+    resolve: function () {
+      obj.state = '';
+      callback.apply(context, arguments);
+    }
+  },
+    context = null;
+  var resolve = obj.resolve;
+  return function () {
+    if (obj.state == "Pending") {
+      return;
+    }
+    obj.state = "Pending";
+    fn.apply(context = this, [resolve].concat(toArray(arguments)));
+  }
+
 }
 
 module.exports = {
+    preventRepeat,
+    getCharWidth,
+    intersection,
+    once,
     Observable,
     toArray,
     slice,
@@ -559,5 +641,5 @@ module.exports = {
     mergeHandler,
     Scheduler,
     Pager,
-    PageScroll
+    PageScroll,
 }

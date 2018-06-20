@@ -1,7 +1,7 @@
 <!--pages/bind/bind.wxml-->
 <view class="line"></view>
 <view class="wrap">
-  <image class="logo" src="http://192.168.10.65:168/images/bind-logo.png"></image>
+  <image class="logo" src="{{logo}}"></image>
   <view class="ipt-wrap phone-wrap">
     <text>手机号</text>
     <input value="{{phone}}" type="number" maxlength="11" placeholder="请输入手机号"

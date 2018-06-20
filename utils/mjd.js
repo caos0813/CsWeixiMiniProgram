@@ -6,7 +6,7 @@ const {
   GLOBALVAR
 } = require('./config.js')
 const util = require('./util.js')
-const requestExport = require('./request.js')
+let requestExport = require('./request.js')
 const wxAPi = require('./wx-api.js')
 const {
   getKeys,
@@ -18,11 +18,12 @@ const {
   wrapPromise,
   Observable,
   mergeHandler,
-  Scheduler
+  Scheduler,
+  Callbacks
 } = util
 let mjd = {}
 
-const { getAuth } = require('../apis/login.js');
+const { getAuth, getShopId, autoLogin } = require('../apis/login.js');
 
 
 
@@ -31,63 +32,50 @@ const { getAuth } = require('../apis/login.js');
  * 
  */
 function startApp() {
+  const shopCallback = Callbacks('once memory');
+  const requestObservable = requestExport.requestObservable;
   let app = App({
-
     // 全局只执行一次
-    onLaunch: function () {
-      console.log('onLaunch');
-
-      // APP启动前获取并设置SHOPID
-      requestExport.setCommonHeader('shopid', 7);
-      // 设置默认地区
-      requestExport.setCommonData('provinceid',0);
-      requestExport.setCommonData('cityid', 0);
-
-      // 展示本地存储能力
-      var logs = wx.getStorageSync('logs') || []
-      logs.unshift(Date.now())
-      wx.setStorageSync('logs', logs)
-
-      // 登录
-      // wx.login({
-      //   success: res => {
-      //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      //     if (res.code) {
-      //       getAuth({
-      //         js_code: res.code
-      //       }).then(res => {
-      //         console.log(res);
-      //       }, () => {
-      //         console.log('fail');
-      //       });
-      //     }
-      //   }
-      // })
-      // 获取用户信息
-      wx.getSetting({
-        success: res => {
-          if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-            wx.getUserInfo({
-              success: res => {
-                // 可以将 res 发送给后台解码出 unionId
-                this.globalData.userInfo = res.userInfo
-
-                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                // 所以此处加入 callback 以防止这种情况
-                if (this.userInfoReadyCallback) {
-                  console.log('app-call');
-                  this.userInfoReadyCallback(res)
-                }
-              }
-            })
-          }
+    onLaunch: function (e) {
+      // 获取设置信息,供全局使用
+      try {
+        this.globalData.stytemInfo = wx.getSystemInfoSync()
+      } catch (e) {
+        
+      }
+      this.checkLogin().catch(()=>{}).then(()=>{
+        if (e.query.shopid) {
+          this.globalData.shopid = e.query.shopid;
+          requestExport.setCommonHeader('shopid', e.query.shopid);
+          shopCallback.fire();
+        } else {
+          getShopId().then((res) => {
+            this.globalData.shopid = res;
+            // APP启动前获取并设置SHOPID
+            requestExport.setCommonHeader('shopid', res);
+            shopCallback.fire();
+          }, () => {
+            console.log('fail')
+          });
         }
+      });
+
+      // 设置默认地区
+      // requestExport.setCommonData('provinceid',0);
+      // requestExport.setCommonData('cityid', 0);
+      requestExport.setCommonHeader('sharesource', 1);
+
+      requestObservable.on('logout', (rerequest) => {
+        this.logout().then(rerequest, () => {
+          wx.showToast({ title: '登录失效', icon: 'none' })
+        });
       })
+    },
+    shopidcallback(callback){
+      shopCallback.add(callback);
     },
     //当小程序启动，或从后台进入前台显示，会触发 onShow
     onShow() {
-      console.log('app-show');
     },
     onHide() {
       // Do something when hide.
@@ -106,21 +94,69 @@ function startApp() {
     Page: extendPage, // 注册页面
     Component: extendComponent, // 注册组件
     globalData: {
-      userInfo: null
+      shopid:-1,
+      stytemInfo:null,
+      userInfo: null,
+      pageTempData:null // 页面临时数据
+    },
+    setLoginToken(token)
+    {
+      this.globalData.userInfo = true;
+      // 绑定
+      requestExport.setCommonHeader('token', token);
+      wx.setStorageSync("token", token);
+    },
+    logout()
+    {
+      this.globalData.userInfo = null;
+      return this.checkLogin();
+    },
+    checkLogin()
+    {
+      return new Promise((resolve,reject)=>{
+        if (this.globalData.userInfo) {
+          resolve(this.globalData.userInfo);
+          return;
+        }
+        // 检查登录
+        userLogin().then((token) => {
+          this.setLoginToken(token);
+          resolve(this.globalData.userInfo);
+        }, ()=>{
+          reject();
+          this.globalData.userInfo = null;
+          wx.removeStorage({
+            key: "token"
+          });
+        })
+      })
+
     }
   });
 
 }
+
+
 
 /**
  * 登录授权
  * 
  */
 function checkHasToken() {
-
+  try {
+    var token = wx.getStorageSync('token')
+    if (token) {
+      // Do something with return value
+      return true;
+    }
+  } catch (e) {
+    // Do something when catch error
+  }
 }
-
-function loginGetAuth() {
+// 用户登录
+function userLogin()
+{
+ return new Promise((resolve,reject)=>{
   // 登录
   wx.login({
     success: res => {
@@ -128,31 +164,34 @@ function loginGetAuth() {
       if (res.code) {
         getAuth({
           js_code: res.code
-        }).then(res => {
-          console.log(res);
-          requestExport.setCommonHeader('miniopenid', res.openid);
-          if(res.bindstatus === 1) {
-            // 绑定
-            wx.setStorage({
-              key: "token",
-              data: res.token
-            });
-          }else {
-            wx.navigateTo({
-              url: `/pages/bind/bind?openid=${res.openid}`
-            })
-          }
+        }, true, false).then(res => {
+          let open_id = res;
+          requestExport.setCommonHeader('miniopenid', open_id);
+          wx.setStorage({
+            key: 'miniopenid',
+            data: open_id,
+          });
+          autoLogin().then(res => {
+            if (res.bindstatus === 1) {          
+              resolve(res.token);
+            } else {
+              reject();
+            }
+          });
         }, () => {
-          console.log('fail');
+          reject();
         });
+      }else{
+        reject();
       }
+    },
+    fail:()=>{
+      reject();
     }
   })
+ });
 }
 
-function bindUser() {
-
-}
 
 let defaultOptionHook = (function () {
   return {
@@ -177,7 +216,7 @@ function craeteExtendOptions(hooks) {
 const extendPageOption = craeteExtendOptions({
   'handler': function (src, copy, name, target, source) {
     if (util.isFunction(src)) {
-      target[name] = mergeHandler([src, copy]);
+      target[name] = copy?mergeHandler([src, copy]):src;
     } else {
       target[name] = copy;
     }
@@ -232,13 +271,17 @@ let setter = function (obj, path, value) {
  * 
  */
 function extendPage(proto) {
+    const orgLoad = proto.onLoad;
+    proto.onLoad=null;
+    const orgShow= proto.onShow;
+    proto.onShow = null;
     const scheduler = new Scheduler();// 性能优化，避免setData 多次触所导致页面卡顿，或性能受损
     const observable = new Observable(); // 增加页面事件订阅机制
     const app = getApp();
     let defaultProto = {
     mjd: mjd,
     // 默认自动加载用户信息
-    autoLoadUserInfo: true,
+    autoLoadUserInfo: false,
     on: observable.on.bind(observable),
     off: observable.on.bind(observable),
     emit: observable.emit.bind(observable),
@@ -246,23 +289,24 @@ function extendPage(proto) {
      * 页面的初始数据
      */
     data: {
-        
-        userInfo: {},
-        hasUserInfo: false
+      hasUserInfo: false
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        if (this.autoLoadUserInfo) {
-            this.loadUserInfo();
-        }
+      if (this.autoLoadUserInfo) {
+        this.loadUserInfo();
+      }
+      app.shopidcallback(()=>{
+        orgLoad.call(this,options);
+      })
+  
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
     },
     setNextData:function(data,callback)
     {
@@ -271,8 +315,15 @@ function extendPage(proto) {
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
-
+    onShow: function () {    
+      let temp={};
+      if (util.isPlainObject(app.globalData.pageTempData)){
+        temp =app.globalData.pageTempData;
+        app.globalData.pageTempData=null;
+      }
+      app.shopidcallback(() => {
+        orgShow && orgShow.call(this, temp);
+      })
     },
 
     /**
@@ -302,12 +353,9 @@ function extendPage(proto) {
     onReachBottom: function () {
 
     },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
+    setPageStorageData(data)
+    {
+      app.globalData.pageTempData=data;
     },
     loadUserInfo: function () {
       if (app.globalData.userInfo) {
@@ -386,7 +434,7 @@ module.exports = mjd = {
   extendPageOption,
   startApp,
   extendPage,
-  loginGetAuth,
+  checkHasToken,
   ...util,
   ...requestExport,
   ...wxAPi

@@ -17,12 +17,21 @@ const getHotBrandList = (provinceid = 0, cityid = 0) => {
   });
 }
 // 获取精选大牌
-const getBrandSelectionList = (pageindex, pagesize, provinceid = 0, cityid = 0) => {
-  return postRequest('BRAND_SELECTION', {
-    pageindex,
-    pagesize,
-    provinceid,
-    cityid
+const getBrandSelectionList = ({
+  pageindex= 1,
+  pagesize= 10, 
+  provinceid= 0, 
+  cityid = 0
+}, autoShowLoading = true) => {
+  return postRequest({
+    name: 'BRAND_SELECTION', 
+    data: {
+      pageindex,
+      pagesize,
+      provinceid,
+      cityid
+    },
+    autoShowLoading
   });
 }
 

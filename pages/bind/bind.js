@@ -1,7 +1,7 @@
 // pages/bind/bind.js
-const { getCode, bindOpenid, login } = require('../../apis/login.js');
+const { getCode, login, bindWechatInfo } = require('../../apis/login.js');
 const wxAPI = require('../../utils/wx-api.js');
-const requestExport = require('../../utils/request.js');
+const { getImageUrl } = require('../../utils/config.js')
 const COUNTDOWN_SECONDS = 120;
 const app = getApp();
 app.Page({
@@ -10,60 +10,60 @@ app.Page({
    * 页面的初始数据
    */
   data: {
+    logo: getImageUrl('logo'),
     phone: '',
     code: '',
     captchaLabel: '获取验证码',
     captchaDisabled: false,
     isPhoneFocus: false,
     isCodeFocus: false,
-    seconds: COUNTDOWN_SECONDS,
-    openid: ''
+    seconds: COUNTDOWN_SECONDS
   },
 
   bindPhoneInput: function(e) {
-    this.setNextData({
+    this.setData({
       phone: e.detail.value
     })
   },
 
   bindCodeInput: function(e) {
-    this.setNextData({
+    this.setData({
       code: e.detail.value
     })
   },
 
   clearPhone: function(e) {
-    this.setNextData({
+    this.setData({
       phone: ''
     })
   },
 
   clearCode: function(e) {
-    this.setNextData({
+    this.setData({
       code: ''
     })
   },
 
   phoneFocus: function() {
-    this.setNextData({
+    this.setData({
       isPhoneFocus: true
     })
   },
 
   phoneBlur: function() {
-    this.setNextData({
+    this.setData({
       isPhoneFocus: false
     })
   },
 
   codeFocus: function () {
-    this.setNextData({
+    this.setData({
       isCodeFocus: true
     })
   },
 
   codeBlur: function () {
-    this.setNextData({
+    this.setData({
       isCodeFocus: false
     })
   },
@@ -79,7 +79,7 @@ app.Page({
       return false;
     }
     // 正在发送验证码
-    this.setNextData({
+    this.setData({
       captchaDisabled: true,
       captchaLabel: '正在发送'
     });
@@ -88,7 +88,7 @@ app.Page({
       // 发送验证码成功
       timer = setInterval(() => {
         seconds--;
-        this.setNextData({
+        this.setData({
           captchaLabel: `重新发送(${seconds})`,
           seconds: seconds
         });
@@ -134,10 +134,16 @@ app.Page({
   },
 
   resetData: function() {
-    this.setNextData({
+    this.setData({
       captchaDisabled: false,
       captchaLabel: '重新发送',
       seconds: COUNTDOWN_SECONDS
+    });
+  },
+
+  goBack: function() {
+    wx.navigateBack({
+      delta: 1
     });
   },
 
@@ -145,17 +151,45 @@ app.Page({
     if (!this.checkPhone() || !this.checkCode()) {
       return;
     }
-    login({
-      mobile: this.data.phone,
-      smscode: this.data.code
-    }).then(res => {
-      console.log(res);
-      wx.setStorage({
-        key: "token",
-        data: res.token
-      });
-    }, () => {
-      console.log('fail');
+    let self = this;
+    let wxFaceimage,
+        wxNickname;
+    // 能进该页面为授权状态
+    // 绑定后将微信头像昵称上传作为用户头像昵称
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function (res) {
+              wxNickname = res.userInfo.nickName;
+              wxFaceimage = res.userInfo.avatarUrl;
+              login({
+                mobile: self.data.phone,
+                smscode: self.data.code
+              }).then(res => {
+                app.setLoginToken(res.token);
+                bindWechatInfo({
+                  isWrapSuccess: false,
+                  isCustomError: false,
+                  autoShowLoading: true
+                }, {
+                    "faceimage": wxFaceimage,
+                    "nickname": wxNickname
+                  }).then(res => {
+                    console.log(res);
+                    self.goBack();
+                  }).catch(err => {
+                    console.log(err);
+                    self.goBack();
+                  });
+              }, () => {
+                console.log('fail');
+              });
+            }
+          });
+        }
+      }
     });
   },
 
@@ -169,16 +203,7 @@ app.Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(!options.openid) {
-      wxAPI.showToast({
-        title: '不存在openid',
-        icon: 'none'
-      });
-      return false;
-    }
-    this.setNextData({
-      openid: options.openid
-    });
+    
   },
 
   /**
@@ -220,13 +245,6 @@ app.Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
   
   }
 })

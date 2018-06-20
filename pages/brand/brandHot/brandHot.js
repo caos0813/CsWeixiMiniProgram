@@ -1,4 +1,4 @@
-// pages/brandHot/brandHot.js
+// pages/brandHot/brandHot.js  品牌热销榜
 const { getHotBrandList } = require('../../../apis/brands.js');
 const wxAPI = require('../../../utils/wx-api.js');
 
@@ -9,7 +9,8 @@ app.Page({
    * 页面的初始数据
    */
   data: {
-    brandsArr: []
+    brandsArr: [],
+    isLoading: false
   },
 
   /**
@@ -27,9 +28,9 @@ app.Page({
       title: '加载中...',
     });
     getHotBrandList().then(res => {
-      console.log(res);
-      this.setNextData({
-        brandsArr: this.data.brandsArr.concat(res)
+      this.setData({
+        brandsArr: this.data.brandsArr.concat(res),
+        isLoading: true
       });
       wxAPI.hideLoading();
       if (res.code !== 1) {

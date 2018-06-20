@@ -1,4 +1,4 @@
-// pages/brand/brandGoods/brandGoods.js
+// pages/brand/brandGoods/brandGoods.js  品牌商品列表页
 const { getGoodsByBrand } = require('../../../apis/goods.js');
 const wxAPI = require('../../../utils/wx-api.js');
 
@@ -20,7 +20,12 @@ app.Page({
       pagesize: 10,
       pageindex: 1
     },
-    goodsList: []
+    goodsList: [],
+    isLoading: false,
+    loaded: false,
+    brandlogo: '',
+    brandbackgrdpic: '',
+    brandbriefintro: ''
   },
 
   /**
@@ -30,19 +35,59 @@ app.Page({
     wx.setNavigationBarTitle({
       title: options.brandname,
     });
-    this.setNextData({
-      'params.brandid': options.brandid
+    this.setData({
+      'params.brandid': options.brandid,
+      brandlogo: options.brandlogo,
+      brandbackgrdpic: options.brandbackgrdpic,
+      brandbriefintro: options.brandbriefintro,
     });
-    getGoodsByBrand(this.data.params).then(res => {
-      console.log(res);
-      this.setNextData({
-        goodsList: this.data.goodsList.concat(res)
+    var that = this;
+    this.pager = new this.mjd.Pager({
+      pageIndex: 1,
+      pageSize: 10
+    })
+    this.pager.setTotal(9999999999999);// 接口未返回总记录数，设置
+    // 页变化
+    this.pager.onPageChange(function (pageIndex) {
+      console.log(pageIndex)
+      that.showData(false)
+    })
+    // 页数发生变化
+    this.pager.onPageCountChange(function () {
+      console.log(this.pageCount, this.pageIndex);
+    })
+    // 刷新时
+    this.pager.onRefresh(function () {
+      this.unlock();// 刷新时解锁
+      that.data.goodsList = [];
+      that.showData(false).then(() => {
+        that.mjd.stopPullDownRefresh()
+      })
+    })
+    this.showData();
+  },
+  showData: function (autoShowLoading = true) {
+    return getGoodsByBrand({
+      pageindex: this.pager.pageIndex,
+      brandid: this.data.params.brandid
+    }, autoShowLoading).then(goodsList => {
+      this.setData({
+        isLoading: false
       });
-    }, () => {
-      console.log('fail')
+      if (goodsList.length > 0) {
+        this.data.goodsList.push(...goodsList);
+        this.setData({
+          goodsList: this.data.goodsList
+        });
+      }
+      if (goodsList.length < this.pager.pageSize) {
+        this.setData({
+          loaded: true
+        });
+        this.pager.lock();//当没有数据了，代表没有下一页，锁住分页，不进行下一页
+      }
     })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -82,7 +127,12 @@ app.Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+    if(!this.data.loaded) {
+      this.setData({
+        isLoading: true
+      });
+    }
+    this.pager.next();
   },
 
   /**
